@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class SignUp extends Component {
+class SignIn extends Component {
 
     render() {
         return (
@@ -15,10 +15,10 @@ class SignUp extends Component {
                     <input type="password" class="form-control" id="pwd"></input>
                 </div>
 
-                <button type="submit" class="btn btn-success">SignUp</button>
+                <button type="submit" class="btn btn-success">SignIn</button>
             </form>
         )
     }
 }
 
-export default SignUp;
+export default SignIn;

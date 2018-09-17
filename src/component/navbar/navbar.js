@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter as Link} from 'react-router-dom';
 
 
 const navbar = () => {
@@ -10,8 +11,8 @@ const navbar = () => {
                 <a className="navbar-brand" href="#">CueBlog</a>
                 </div>
                 <ul className="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><Link to={"/signup"}><span class="glyphicon glyphicon-user"></span> Sign Up</Link></li>
+                <li><Link to={"/signin"}><span class="glyphicon glyphicon-log-in"></span> Login</Link></li>
                 </ul>
             </div>
         </nav>
