@@ -1,14 +1,16 @@
 import React,{ Component } from 'react';
 import NavBar from '../component/navbar/navbar';
-import BlogSummary from '../component/blogSummary/blogSummary';
+import RecentPost from '../component/recentPost/recentPost';
+import PopularPost from '../component/popularPost/popularPost';
 
 class MainPage extends Component {
 
     render() {
         return (
-           <div>
+           <div className="text-center">
                <NavBar></NavBar>
-               <BlogSummary></BlogSummary>
+               <RecentPost></RecentPost><br/>
+               <PopularPost></PopularPost>
            </div> 
             
         )

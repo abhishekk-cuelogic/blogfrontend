@@ -11,8 +11,8 @@ const navbar = () => {
                 <a className="navbar-brand" href="#">CueBlog</a>
                 </div>
                 <ul className="nav navbar-nav navbar-right">
-                <li><Link to={"/signup"}><span class="glyphicon glyphicon-user"></span> Sign Up</Link></li>
-                <li><Link to={"/signin"}><span class="glyphicon glyphicon-log-in"></span> Login</Link></li>
+                <li><Link to={"/signup"}><span className="glyphicon glyphicon-user"></span> Sign Up</Link></li>
+                <li><Link to={"/signin"}><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>
                 </ul>
             </div>
         </nav>

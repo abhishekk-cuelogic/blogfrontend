@@ -3,8 +3,8 @@ import Img from '/home/abhishek/Desktop/blogfrontend/src/img.jpg'
 
 const blogDiv = () => {
     return (
-        <div class="col-sm-3">
-          <div class="well">
+        <div className="col-sm-3">
+          <div className="well">
             <img className="img-responsive" src={Img} alt="blogimg"></img>
             <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
