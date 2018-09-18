@@ -8,7 +8,7 @@ class RecentPost extends Component {
 
         return (
             <div className="container-fluid bg-3 text-center"> 
-            <h3>Recent Post</h3><br/>   
+            <h4>Recent Post</h4>   
             <div className="row">
                 <BlogDiv></BlogDiv>
                 <BlogDiv></BlogDiv>
