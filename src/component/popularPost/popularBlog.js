@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 const popularBlog = () => {
 
     return (
-            <Link to={`/blog/${1}`}><div className="carousel-inner" role="listbox">
+            <Link to="/blog"><div className="carousel-inner" role="listbox">
                     <div className="item active">
                         <img className="img-responsive" src={Ronaldo} alt="Imag"></img>
                         <div className="carousel-caption">
