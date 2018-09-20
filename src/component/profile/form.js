@@ -6,7 +6,7 @@ class Form extends Component {
     render() {
         return(
             <div className="col-sm-8 col-sm-offset-2">
-                <div className="jumbotron">
+                <div>
                         <form className="form-horizontal" autoComplete="off">
                                 <div className="form-group">
                                     <label for="email">Email</label>

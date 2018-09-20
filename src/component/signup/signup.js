@@ -13,10 +13,10 @@ class SignUp extends Component {
             username:email,
             password:password
           })
-          .then(function (response) {
+          .then( (response) => {
             alert(response.data);
           })
-          .catch(function (error) {
+          .catch( (error) => {
             alert(error);
           });
     }

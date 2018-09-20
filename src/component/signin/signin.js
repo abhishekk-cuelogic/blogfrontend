@@ -1,7 +1,29 @@
 import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
+import axios from '../../axiosInstance';
 
 class SignIn extends Component {
+
+
+    signIn = () => {
+        let email = document.getElementById('email').value;
+        let password=document.getElementById('pwd').value;
+
+        console.log(`email:${email} password:${password}`);
+
+        axios.post('/signin',{
+                username:email,
+                password:password
+            })
+            .then((response) => {
+                alert(response.data.message);
+                localStorage.setItem('token',response.data.token);
+                this.props.history.push('/');
+            })
+            .catch((error) => {
+                alert(error);
+            }) 
+       }
 
     render() {
         return (
@@ -18,7 +40,7 @@ class SignIn extends Component {
                         <input type="password" className="form-control" id="pwd"></input>
                     </div>
 
-                    <button type="submit" className="btn btn-success">SignIn</button>
+                    <button type="button" className="btn btn-success" onClick={this.signIn}>SignIn</button>
                 </form>
             </div>
             
