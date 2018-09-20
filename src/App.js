@@ -4,6 +4,9 @@ import MainPage from './container/mainPage/mainPage';
 import SignUp from './component/signup/signup';
 import SignIn from './component/signin/signin';
 import BlogPage from './container/blogPage/blogPage';
+import ProfilePage from './container/profilePage/profilePage';
+import WriteBlog from './component/writeBlog/writeBlog';
+
 
 class App extends Component {
   render() {
@@ -14,6 +17,8 @@ class App extends Component {
               <Route exact path='/signup' component={SignUp}/>
               <Route exact path='/signin' component={SignIn}/>
               <Route exact path='/blog' component={BlogPage}/>
+              <Route exact path='/profile' component={ProfilePage}/>
+              <Route exact path="/writeblog" component={WriteBlog}/>
           </Switch>
          </div>
     );
