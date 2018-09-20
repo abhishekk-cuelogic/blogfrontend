@@ -1,7 +1,26 @@
 import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
+import axios from '../../axiosInstance';
 
 class SignUp extends Component {
+
+
+    signUp = () => {
+        let email=document.getElementById('email').value;
+        let password=document.getElementById('pwd').value;
+        console.log(`email = ${email}  password = ${password}`);
+
+        axios.post('/', {
+            username:email,
+            password:password
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
 
     render() {
         return (
@@ -18,7 +37,7 @@ class SignUp extends Component {
                         <input type="password" className="form-control" id="pwd"></input>
                     </div>
 
-                    <button type="submit" className="btn btn-success">SignUp</button>
+                    <button type="button" className="btn btn-success" onClick={this.signUp}>SignUp</button>
                 </form>
             </div>
             
