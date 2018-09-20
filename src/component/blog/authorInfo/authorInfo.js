@@ -5,10 +5,11 @@ class AuthorInfo extends Component {
 
 
     render() {
+
         return(
             <div className="container-fluid">
                 <div className="col-sm-2 text-center">
-                    <img src={Ronaldo} className="img-responsive img-circle" alt="Avatar" />
+                    <img src={Ronaldo} className="img-responsive img-rounded" alt="Avatar" />
                 </div>
                 <div className="col-sm-10">
                     <h4><b>Abhishek Khutwad</b><small> Sep 29, 2015, 9:12 PM</small></h4>

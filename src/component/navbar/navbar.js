@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-
 const navbar = () => {
    
     return(
@@ -13,7 +12,7 @@ const navbar = () => {
                 <ul className="nav navbar-nav navbar-right">
                 <li><Link to={"/signup"}><span className="glyphicon glyphicon-user"></span> Sign Up</Link></li>
                 <li><Link to={"/signin"}><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>
-                </ul>
+                </ul> 
             </div>
         </nav>
     )
