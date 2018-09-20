@@ -8,17 +8,16 @@ class SignUp extends Component {
     signUp = () => {
         let email=document.getElementById('email').value;
         let password=document.getElementById('pwd').value;
-        console.log(`email = ${email}  password = ${password}`);
-
+        
         axios.post('/', {
             username:email,
             password:password
           })
           .then(function (response) {
-            console.log(response);
+            alert(response.data);
           })
           .catch(function (error) {
-            console.log(error);
+            alert(error);
           });
     }
 
