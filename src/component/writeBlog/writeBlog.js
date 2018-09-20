@@ -1,23 +1,19 @@
-import React from 'react';
-import { Editor } from '@tinymce/tinymce-react';
+import React,{Component} from 'react';
+import BlogForm from './blogForm';
+import NavBar from '../navbar/navbar';
 
-class WriteBlog extends React.Component {
-  handleEditorChange = (e) => {
-    console.log('Content was updated:', e.target.getContent());
-  }
+class WriteBlog extends Component {
+    render() {
 
-  render() {
-    return (
-      <Editor
-        initialValue="<p>This is the initial content of the editor</p>"
-        init={{
-          plugins: 'link image code',
-          toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
-        }}
-        onChange={this.handleEditorChange}
-      />
-    );
-  }
+        return(
+            <div>
+                <NavBar></NavBar>
+                <h2 className="text-center">Write the Blog</h2>
+                <BlogForm></BlogForm>
+            </div>
+            
+        )
+    }
 }
 
 export default WriteBlog;
