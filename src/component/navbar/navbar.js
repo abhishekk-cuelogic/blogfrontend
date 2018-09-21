@@ -4,28 +4,49 @@ import { connect } from 'react-redux';
 
 class Navbar extends Component {
 
-    render() {
+    signOut = () => {
+        localStorage.removeItem('token');
+        this.props.onLoggedOut();
+    }
 
-        let navComponent;
-        console.log(this.props.loggedIn);
+    render() {
+        let navComponent,searchComponent;
 
         if(!this.props.loggedIn) {
             navComponent = <ul className="nav navbar-nav navbar-right">
-             <li><Link to={"/signup"}><span className="glyphicon glyphicon-user"></span> Sign Up</Link></li>
-             <li><Link to={"/signin"}><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>
+             <li><Link to={"/signup"} onClick={this.props.onNavigationClicked}><span className="glyphicon glyphicon-user"></span> Sign Up</Link></li>
+             <li><Link to={"/signin"} onClick={this.props.onNavigationClicked}><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>
              </ul> 
         } else {
             navComponent = <ul className="nav navbar-nav navbar-right">
-            <li><Link to={"/signup"}><span className="glyphicon glyphicon-user"></span> Profile</Link></li>
+                <li className="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span className="glyphicon glyphicon-user"></span> Profile </a>
+                    <ul className="dropdown-menu">
+                    <li><Link to="/profile"><b>Your Profile</b></Link></li><br/>
+                    <li><Link to="/writeblog"><b>Write Blog</b></Link></li><br/>
+                    <li><Link to="/writeblog"><b>DashBoard</b></Link></li><br/>
+                    <li><Link to="/" onClick={this.signOut}><b>Sign Out</b></Link></li>
+                    </ul>
+                </li>
             </ul>  
         }
+
+        if(!this.props.clicked || this.props.loggedIn ) {
+               searchComponent = <ul className="nav navbar-nav navbar-center">
+                                    <li><a><b>SPORTS</b></a></li>
+                                    <li><a><b>TECH</b></a></li>
+                                    <li><a><b>SCIENCE</b></a></li>
+                               </ul>
+               } else {
+                   searchComponent = null;
+               }
 
         return(
             <nav className="navbar navbar-inverse">
                 <div className="container-fluid">
                     <div className="navbar-header">
-                    <a className="navbar-brand" href="#">CueBlog</a>
+                      <a className="navbar-brand">CueBlog</a>;
                     </div>
+                    {searchComponent}
                     {navComponent}
                 </div>
             </nav>
@@ -36,8 +57,16 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
     return {
-        loggedIn:state.loggedIn
+        loggedIn:state.loggedIn,
+        clicked:state.clicked
     }
 }
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = dispatch => {
+    return {
+        onLoggedOut: () => dispatch({type:"LOGGEDOUT"}),
+        onNavigationClicked: () => dispatch({type:"NAVCLICKED"})
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Navbar);
