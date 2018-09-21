@@ -8,7 +8,7 @@ class Profile extends Component {
 
         return(
             <div className="container">
-                <div className="col-sm-9 col-sm-offset-1">
+                <div>
                 <div className="col-sm-4 col-sm-offset-4">
                     <img src={Ronaldo} className="img-responsive img-rounded" alt="Avatar" /><br/><br/>
                 </div>

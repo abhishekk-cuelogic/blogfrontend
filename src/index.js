@@ -6,5 +6,21 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Router><App /></Router>, document.getElementById('root'));
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import NavigationReducer from './store/navigation'; 
+
+const store = createStore(NavigationReducer);
+
+const app = (
+    <Provider store={store}>
+        <Router>
+            <App />
+        </Router>
+    </Provider>
+)
+
+
+
+ReactDOM.render(app, document.getElementById('root'));
 registerServiceWorker();
