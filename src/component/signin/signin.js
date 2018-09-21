@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
+import { connect } from 'react-redux';
 
 class SignIn extends Component {
 
@@ -17,6 +18,7 @@ class SignIn extends Component {
             })
             .then((response) => {
                 alert(response.data.message);
+                this.props.onLoggedIn();
                 localStorage.setItem('token',response.data.token);
                 this.props.history.push('/');
             })
@@ -48,4 +50,10 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn;
+const mapDispatchToProps = dispatch => {
+    return {
+        onLoggedIn : () => dispatch({type:"loggedIn"})
+    }      
+}
+
+export default connect(null,mapDispatchToProps)(SignIn);
