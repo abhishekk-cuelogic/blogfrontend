@@ -19,6 +19,7 @@ class SignIn extends Component {
             .then((response) => {
                 alert(response.data.message);
                 this.props.onLoggedIn();
+                this.props.onNavigationClicked();
                 localStorage.setItem('token',response.data.token);
                 this.props.history.push('/');
             })
@@ -52,7 +53,8 @@ class SignIn extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLoggedIn : () => dispatch({type:"loggedIn"})
+        onLoggedIn : () => dispatch({type:"LOGGEDIN"}),
+        onNavigationClicked : () => dispatch({type:"NAVCLICKED"})
     }      
 }
 
