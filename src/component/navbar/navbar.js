@@ -6,6 +6,7 @@ class Navbar extends Component {
 
     signOut = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userName');
         this.props.onLoggedOut();
     }
 

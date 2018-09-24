@@ -21,6 +21,7 @@ class SignIn extends Component {
                 this.props.onLoggedIn();
                 this.props.onNavigationClicked();
                 localStorage.setItem('token',response.data.token);
+                localStorage.setItem('userName',response.data.username);
                 this.props.history.push('/');
             })
             .catch((error) => {

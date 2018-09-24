@@ -1,8 +1,52 @@
 import React,{Component} from 'react';
-import BlogEditor from './blogEditor';
-
+//import BlogEditor from './blogEditor';
+import { Editor } from '@tinymce/tinymce-react';
+import axios from '../../axiosInstance';
 
 class BlogForm extends Component {
+
+    state={
+        content:null
+    }
+
+
+    handleEditorChange = (e) => {
+        this.setState({content: e.target.getContent()})
+      }
+
+    postBlog = () => {
+
+        var formData = new FormData();
+
+        let userName=localStorage.getItem('userName');
+        let title=document.getElementById('title').value;
+        let authorName=document.getElementById('aname').value;
+        let catagory=document.getElementById('catagory').value;
+        let content=this.state.content;
+        var imagefile = document.getElementById('img');
+
+        formData.append('userName',userName);
+        formData.append('title',title);
+        formData.append('authorName',authorName);
+        formData.append('catagory',catagory);
+        formData.append('content',content);
+        formData.append("myImage", imagefile.files[0]);
+
+        axios.post('/post', formData, {
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }})
+            .then(res => {
+                alert(res);
+            })
+            .catch( err => {
+                alert(err);
+            })
+
+        console.log(this.state.content);
+    }
+
+
     render() {
         return (
             <div className="col-sm-8 col-sm-offset-2">
@@ -10,25 +54,32 @@ class BlogForm extends Component {
                     <form className="form-horizontal" autoComplete="off">
                             <div className="form-group">
                                 <label for="email">Title</label>
-                                <input type="text" className="form-control" id="title"/>
+                                <input type="text" className="form-control" id="title" name='title'/>
                             </div>
                             <div className="form-group">
                                 <label for="fname">Author Name</label>
-                                <input type="text" className="form-control" id="aname"/>
+                                <input type="text" className="form-control" id="aname" name='authorname'/>
                             </div>
                             <div className="form-group">
-                                <label for="fname">Tags</label>
-                                <input type="text" className="form-control" id="tags"/>
+                                <label for="fname">Catagory</label>
+                                <input type="text" className="form-control" id="catagory" name='catagory'/>
                             </div>
                             <div className="form-group">
                             <label>Content</label>
-                               <BlogEditor></BlogEditor>
+                                <Editor
+                                    initialValue="<p>Use editor functionality to style your blog</p>"
+                                    init={{
+                                    plugins: 'link image code',
+                                    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+                                    }}
+                                    onChange={this.handleEditorChange}
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Upload Image</label>
-                                <input type="file" id="img"/>     
+                                <input type="file" id="img" name='myImage'/>     
                             </div>
-                            <button className="btn btn-success" id="btnreg">Post Blog</button>
+                            <button type="button" className="btn btn-success" onClick={this.postBlog}>Post Blog</button>
                         </form>
             </div>
             </div>
