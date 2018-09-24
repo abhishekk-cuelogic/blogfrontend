@@ -1,7 +1,38 @@
 import React, {Component} from 'react';
+import axios from '../../axiosInstance';
 
 
 class Form extends Component {
+
+
+    updateProfile = () => {
+
+        var formData = new FormData();
+
+        let userName=localStorage.getItem('userName');
+        let fname=document.getElementById('fname').value;
+        let contact=document.getElementById('contact').value;
+        let skills=document.getElementById('skills').value;
+        var imagefile = document.getElementById('img');
+
+        formData.append('userName',userName);
+        formData.append('fullName',fname);
+        formData.append('contact',contact);
+        formData.append('skills',skills);
+        formData.append("myImage", imagefile.files[0]);
+
+        axios.post('/profile', formData, {
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }})
+            .then(res => {
+                alert(res);
+            })
+            .catch( err => {
+                alert(err);
+            })
+
+    }
 
     render() {
         return(
@@ -9,8 +40,8 @@ class Form extends Component {
                 <div>
                         <form className="form-horizontal" autoComplete="off">
                                 <div className="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" className="form-control" id="email"/>
+                                    <label for="email">UserName</label>
+                                    <input type="email" className="form-control" id="email" value={localStorage.getItem('userName')} />
                                 </div>
                                 <div className="form-group">
                                     <label for="fname">Full Name</label>
@@ -28,11 +59,7 @@ class Form extends Component {
                                     <label>Upload Image</label>
                                     <input type="file" id="img"/>     
                                 </div>
-                                <div className="form-group">
-                                    <label for="pwd">Password:</label>
-                                    <input type="password" className="form-control" id="pwd" placeholder="password"/>
-                                </div>
-                                <button className="btn btn-success" id="btnreg">Update</button>
+                                <button type="button" className="btn btn-success" onClick={this.updateProfile} >Update</button>
                             </form>
                 </div>
                 </div>

@@ -17,12 +17,18 @@ class SignIn extends Component {
                 password:password
             })
             .then((response) => {
-                alert(response.data.message);
-                this.props.onLoggedIn();
-                this.props.onNavigationClicked();
-                localStorage.setItem('token',response.data.token);
-                localStorage.setItem('userName',response.data.username);
-                this.props.history.push('/');
+                if(response.data.message) { 
+                    alert("Login SuccessFul");   
+                    this.props.onLoggedIn();
+                    this.props.onNavigationClicked();
+                    localStorage.setItem('token',response.data.token);
+                    localStorage.setItem('userName',response.data.username);
+                    this.props.history.push('/');
+                } else {
+                    alert("Login Unsuccessful");
+                }
+                     
+                
             })
             .catch((error) => {
                 alert(error);
