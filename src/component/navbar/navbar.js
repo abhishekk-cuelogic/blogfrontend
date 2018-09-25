@@ -58,15 +58,15 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
     return {
-        loggedIn:state.loggedIn,
-        clicked:state.clicked
+        loggedIn:state.navReducer.loggedIn,
+        clicked:state.navReducer.clicked
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onLoggedOut: () => dispatch({type:"LOGGEDOUT"}),
-        onNavigationClicked: () => dispatch({type:"NAVCLICKED"})
+        onNavigationClicked: () => dispatch({type:"NAVCLICKED",payload:5})
     }
 }
 

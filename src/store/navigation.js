@@ -21,6 +21,7 @@ const reducer = (state = initialState,action) => {
                 }
 
         case "NAVCLICKED":
+
                 return {
                     ...state,
                     clicked : true

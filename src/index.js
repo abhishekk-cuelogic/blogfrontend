@@ -6,11 +6,15 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { createStore } from 'redux';
+import { createStore , combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import NavigationReducer from './store/navigation'; 
+import mainPageReducer from './store/mainPage';
 
-const store = createStore(NavigationReducer);
+const store = createStore(combineReducers({
+    navReducer: NavigationReducer,
+    mainReducer: mainPageReducer
+}));
 
 const app = (
     <Provider store={store}>
