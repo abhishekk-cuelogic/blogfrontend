@@ -5,7 +5,9 @@
   "dependencies": {
     "@tinymce/tinymce-react": "^2.2.6",
     "axios": "^0.18.0",
+    "bootbox": "^4.4.0",
     "bootstrap": "^3.3.7",
+    "jquery": "^3.3.1",
     "react": "^16.5.1",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.1",
