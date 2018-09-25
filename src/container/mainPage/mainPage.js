@@ -3,9 +3,34 @@ import NavBar from '../../component/navbar/navbar';
 import RecentPost from '../../component/recentPost/recentPost';
 import PopularPost from '../../component/popularPost/popularPost';
 import Footer from '../../component/footer/footer';
+import { connect } from 'react-redux';
+import axios from '../../axiosInstance';
 
 
 class MainPage extends Component {
+
+    constructor(prop) 
+    {
+        super(prop)
+
+
+    }
+
+    componentDidMount = () => {
+
+     axios.get('/post/recent')
+        .then(res => {
+            console.log(res.data);
+            this.props.getPosts(res.data);
+
+        }).catch(err => {
+            console.log(err);
+        })
+            
+
+
+       
+    }
 
     render() {
         return (
@@ -20,4 +45,17 @@ class MainPage extends Component {
     }
 }
 
-export default MainPage;
+const mapStateToProps = state => {
+    return {
+        recentPost : state.mainReducer.recentPost,
+
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getPosts: (allPost) =>dispatch({type:"getPosts", payload:allPost})
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(MainPage) ;
