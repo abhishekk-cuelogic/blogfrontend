@@ -45,7 +45,7 @@ class Navbar extends Component {
             <nav className="navbar navbar-inverse">
                 <div className="container-fluid">
                     <div className="navbar-header">
-                      <a className="navbar-brand">CueBlog</a>;
+                      <a className="navbar-brand"><Link to='/'>CueBlog</Link></a>;
                     </div>
                     {searchComponent}
                     {navComponent}

@@ -2,17 +2,42 @@ import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 import { connect } from 'react-redux';
+import validator from 'validator';
 
 class SignIn extends Component {
 
 
+    validate = (email,password) => {
+    
+        if(validator.isEmpty(email)){
+            alert('please enter email');
+            return false
+        }
+        
+        if(validator.isEmpty(password)){
+            alert('please enter password');
+            return false;
+        }
+
+        if(!validator.isEmail(email)) {
+            alert('plese enter valid email');
+            return false;
+            
+        }
+
+        return true;
+
+    }
+
+
     signIn = () => {
+
         let email = document.getElementById('email').value;
         let password=document.getElementById('pwd').value;
 
-        console.log(`email:${email} password:${password}`);
+        if(this.validate(email,password)){
 
-        axios.post('/signin',{
+            axios.post('/signin',{
                 username:email,
                 password:password
             })
@@ -26,13 +51,13 @@ class SignIn extends Component {
                     this.props.history.push('/');
                 } else {
                     alert("Login Unsuccessful");
-                }
-                     
-                
+                }               
             })
             .catch((error) => {
                 alert(error);
             }) 
+
+        };        
        }
 
     render() {
@@ -41,12 +66,12 @@ class SignIn extends Component {
                 <NavBar></NavBar>
                 <form className="well col-md-4 col-md-offset-4">
                     <div className="form-group">
-                        <label for="email">UserName</label>
+                        <label>UserName</label>
                         <input type="email" className="form-control" id="email"></input>
                     </div>
 
                     <div className="form-group">
-                        <label for="pwd">Password</label>
+                        <label>Password</label>
                         <input type="password" className="form-control" id="pwd"></input>
                     </div>
 
