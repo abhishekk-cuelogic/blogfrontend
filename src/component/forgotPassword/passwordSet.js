@@ -3,8 +3,11 @@ import NavBar from '../navbar/navbar';
 
 class PasswordSet extends Component {
 
-    render() {
+    componentWillMount = () => {
+        console.log(this.props.match.params.token);
+    }
 
+    render() {
         return (
             <div className="text-center">
                 <NavBar></NavBar>     

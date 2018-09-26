@@ -22,7 +22,7 @@ class App extends Component {
               <Route exact path='/profile' component={ProfilePage}/>
               <Route exact path="/writeblog" component={WriteBlog}/>
               <Route exact path='/forgotpassword' component={ForgotPassword}/>
-              <Route exact path='/changepassword' component={ChangePassword}/>
+              <Route exact path='/changepassword/:token' component={ChangePassword}/>
           </Switch>
          </div>
     );

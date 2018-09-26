@@ -1,10 +1,21 @@
 import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
+import axios from '../../axiosInstance';
 
 class ForgotComponent extends Component {
 
-    render() {
+    sendMail = () => {
+        let userName = document.getElementById('email').value;
 
+        axios.post('/signin/forgotpassword',{
+            email:userName
+        })
+        .then(res => {
+            console.log(res);
+        })
+    }
+
+    render() {
         return (
             <div className="text-center">
                 <NavBar></NavBar>
@@ -16,7 +27,7 @@ class ForgotComponent extends Component {
                         <label>UserName</label>
                         <input type="email" className="form-control" id="email"></input>
                     </div>
-                    <button type="button" className="btn btn-success">Send Mail</button><br/><br/>
+                    <button type="button" className="btn btn-success" onClick={this.sendMail}>Send Mail</button><br/><br/>
                 </form>
             </div>
         )
