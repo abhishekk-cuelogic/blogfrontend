@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 import validator from 'validator';
+import bootbox from 'bootbox';
 
 class SignUp extends Component {
 
@@ -9,7 +10,7 @@ class SignUp extends Component {
     valiadate = (email,password) => {
 
         if(validator.isEmpty(email)){
-            alert('please enter email');
+           alert('plese enter email');
             return false
         }
         
@@ -35,7 +36,7 @@ class SignUp extends Component {
         let confirmpassword=document.getElementById('cpwd').value;
 
         if (password !== confirmpassword) {
-            alert('please confirm your password again');
+           alert('please confirm your password again');
         } else {
             if(this.valiadate(email,password)) {
                 axios.post('/', {
