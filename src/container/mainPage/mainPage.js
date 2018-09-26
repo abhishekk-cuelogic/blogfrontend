@@ -9,13 +9,6 @@ import axios from '../../axiosInstance';
 
 class MainPage extends Component {
 
-    constructor(prop) 
-    {
-        super(prop)
-
-
-    }
-
     componentDidMount = () => {
 
      axios.get('/post/recent')
