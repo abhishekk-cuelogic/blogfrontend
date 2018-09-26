@@ -1,29 +1,20 @@
 import React,{Component} from 'react';
-import Ronaldo from '/home/abhishek/Desktop/blogfrontend/src/ronaldo.jpeg';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 class BlogInfo extends Component {
     render() {
+        let image = 'http://localhost:2700/'+this.props.image;
+        let content=this.props.postContent;
         return(
             <div className="col-sm-12">
                 <div className="container-fluid">
-                    <h1 className="text-left"><b>Juventus new Signing</b></h1>
+                    <h1 className="text-left"><b>{this.props.title}</b></h1>
                 </div><br/>
                 <div className="container-fluid"> 
-                 <img src={Ronaldo} className="img-responsive" alt="Avatar" />
+                 <img src={image} className="img-responsive" alt="Avatar" />
                 </div><br/>
                 <div className="container-fluid"> 
-                <h4><b>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</b>
-                </h4>
-                <h4><i>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</i>
-                </h4>
-                <h4><b>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</b>
-                </h4>
+                { ReactHtmlParser(content) }
                 </div>     
             </div>
         )

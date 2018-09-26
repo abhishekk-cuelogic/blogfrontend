@@ -2,17 +2,19 @@ import React from 'react';
 import Img from '/home/abhishek/Desktop/blogfrontend/src/img.jpg';
 import {Link} from 'react-router-dom';
 
-const blogDiv = () => {
+const blogDiv = (props) => {
+
+    let img= "http://localhost:2700/"+props.post.image;
+    let posturl = '/blog/'+props.post._id
+
     return (
         <div className="col-sm-3">
           <div className="well">
-            <img className="img-responsive" src={Img} alt="blogimg"></img>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                Lorem Ipsum has been the industry's standard dummy 
-                text ever since the 1500s
+            <img height="145px" width="257px" src={img} alt="blogimg"></img>
+            <p><br/>
+               <b>{props.post.title.slice(0,60)}</b> 
             </p>
-            <Link to="/blog"><button className="btn btn-success">Read More</button></Link>
+            <Link to={posturl}><button className="btn btn-success">Read More</button></Link>
           </div>
         </div>
     )

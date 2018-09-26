@@ -8,7 +8,7 @@ class BlogPage extends Component {
         return(
             <div>
                 <NavBar></NavBar>
-                <Blog></Blog>
+                <Blog id={this.props.match.params.id}></Blog>
             </div>
         )
     }
