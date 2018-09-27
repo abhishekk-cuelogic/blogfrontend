@@ -34,10 +34,9 @@ class Blog extends Component {
                 <div className="container">
                     <div className="col-sm-9 col-sm-offset-1">
                         <AuthorInfo 
-
                         authorName={this.state.Post.authorName}
-                        date={this.state.Post.date} 
-
+                        date={this.state.Post.date}
+                        views={this.state.Post.views} 
                         /><hr/>
 
                         <BlogInfo

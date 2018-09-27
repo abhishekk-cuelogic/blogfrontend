@@ -13,6 +13,9 @@ class AuthorInfo extends Component {
                     <button type="button" class="btn btn-default btn-sm">
                       <span class="glyphicon glyphicon-thumbs-up"></span> Like
                     </button>
+                    <button type="button" class="btn btn-default btn-sm">
+                        Views {this.props.views}
+                    </button>
                     <br/>
                 </div>
             </div>
