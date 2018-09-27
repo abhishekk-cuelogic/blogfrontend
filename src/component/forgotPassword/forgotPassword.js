@@ -34,4 +34,5 @@ class ForgotComponent extends Component {
     }
 }
 
+
 export default ForgotComponent;

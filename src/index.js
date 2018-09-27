@@ -13,7 +13,7 @@ import mainPageReducer from './store/mainPage';
 
 const store = createStore(combineReducers({
     navReducer: NavigationReducer,
-    mainReducer: mainPageReducer
+    mainReducer: mainPageReducer,
 }));
 
 const app = (
