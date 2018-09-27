@@ -19,17 +19,14 @@ class MainPage extends Component {
         }).catch(err => {
             console.log(err);
         })
-            
-
-
-       
     }
 
     render() {
+        console.log('render=====>',this.props.recentPosts);
         return (
            <div className="text-center">
                <NavBar></NavBar>
-               <RecentPost></RecentPost><hr/>
+               <RecentPost recentPosts={this.props.recentPosts}></RecentPost><hr/>
                <PopularPost></PopularPost><hr/>
                <Footer></Footer>
            </div> 
@@ -40,7 +37,7 @@ class MainPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        recentPost : state.mainReducer.recentPost,
+        recentPosts : state.mainReducer.recentPosts,
 
     }
 }

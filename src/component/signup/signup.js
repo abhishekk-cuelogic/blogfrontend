@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 import validator from 'validator';
-import bootbox from 'bootbox';
 
 class SignUp extends Component {
 
@@ -55,9 +54,10 @@ class SignUp extends Component {
 
     render() {
         return (
-            <div>
+            <div className="text-center">
                 <NavBar></NavBar>
-                <form className="well col-md-4 col-md-offset-4">
+                <h3><b>SignUp To CueBlog</b></h3>
+                <form className="well col-md-4 col-md-offset-4 text-left">
                     <div className="form-group">
                         <label>UserName</label>
                         <input type="email" className="form-control" id="email"></input>

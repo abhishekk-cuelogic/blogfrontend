@@ -1,5 +1,5 @@
 const initialState = {
-    recentPosts : {},
+    recentPosts : [],
     popularPosts : []
 }
 
@@ -10,9 +10,11 @@ const reducer = (state=initialState , action) =>{
 
         case "getPosts" : {
             console.log('getPost reducer called');
-            console.log('reducer===>',action.payload);  
-          
-               
+            console.log('reducer===>',action.payload);
+            return {
+                ...state,
+                recentPosts : action.payload
+            }                 
         }
     }
 

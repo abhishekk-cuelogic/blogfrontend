@@ -67,10 +67,11 @@ class BlogForm extends Component {
                             <div className="form-group">
                             <label>Content</label>
                                 <Editor
-                                    initialValue="<p>Use editor functionality to style your blog</p>"
+                                    initialValue="<p>Use Shift+Enter for Single line Spacing</p>"
                                     init={{
                                     plugins: 'link image code',
-                                    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+                                    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+                                    editor_css : "/content_css.css"
                                     }}
                                     onChange={this.handleEditorChange}
                                 />

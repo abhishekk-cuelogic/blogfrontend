@@ -3,6 +3,7 @@ import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 import { connect } from 'react-redux';
 import validator from 'validator';
+import {Link} from 'react-router-dom';
 
 class SignIn extends Component {
 
@@ -62,9 +63,10 @@ class SignIn extends Component {
 
     render() {
         return (
-            <div>
+            <div className="text-center">
                 <NavBar></NavBar>
-                <form className="well col-md-4 col-md-offset-4">
+                <h3><b>SignIn To CueBlog</b></h3>
+                <form className="well col-md-4 col-md-offset-4 text-left">
                     <div className="form-group">
                         <label>UserName</label>
                         <input type="email" className="form-control" id="email"></input>
@@ -75,7 +77,8 @@ class SignIn extends Component {
                         <input type="password" className="form-control" id="pwd"></input>
                     </div>
 
-                    <button type="button" className="btn btn-success" onClick={this.signIn}>SignIn</button>
+                    <button type="button" className="btn btn-success" onClick={this.signIn}>SignIn</button><br/><br/>
+                    <b><Link to="/forgotpassword">forgot password?</Link></b>
                 </form>
             </div>
             
