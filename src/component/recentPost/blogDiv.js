@@ -1,25 +1,42 @@
-import React from 'react';
-import Img from '/home/abhishek/Desktop/blogfrontend/src/img.jpg';
+import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import axios from '../../axiosInstance';
+import { withRouter } from 'react-router'
 
-const blogDiv = (props) => {
+class  BlogDiv extends Component {
 
-    let img= "http://localhost:2700/"+props.post.image;
-    let posturl = '/blog/'+props.post._id
 
+  increseView = () => {
+      let url = '/post/view/'+this.props.post._id;
+      let posturl = '/blog/'+this.props.post._id;
+
+      axios.put(url)
+      .then(res => {
+        this.props.history.push(posturl);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
+  render() {
+    let img= "http://localhost:2700/"+this.props.post.image;
     return (
         <div className="col-sm-3">
           <div className="well">
             <img height="145px" width="257px" src={img} alt="blogimg"></img>
             <p><br/>
-               <b>{props.post.title.slice(0,60)}</b> 
+               <b>{this.props.post.title.slice(0,60)}</b> 
             </p>
-            <Link to={posturl}><button className="btn btn-success">Read More</button></Link>
+            <button className="btn btn-success" onClick={this.increseView}>Read More</button>
           </div>
         </div>
     )
+  }
+
+    
 }
 
 
 
-export default blogDiv;
+export default withRouter(BlogDiv);
