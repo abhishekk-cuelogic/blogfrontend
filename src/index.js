@@ -10,10 +10,12 @@ import { createStore , combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import NavigationReducer from './store/navigation'; 
 import mainPageReducer from './store/mainPage';
+import blogPageReducer from './store/blogPage';
 
 const store = createStore(combineReducers({
     navReducer: NavigationReducer,
     mainReducer: mainPageReducer,
+    blogReducer : blogPageReducer
 }));
 
 const app = (
