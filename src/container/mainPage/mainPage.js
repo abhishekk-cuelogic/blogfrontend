@@ -13,7 +13,6 @@ class MainPage extends Component {
 
      axios.get('/post/recent')
         .then(res => {
-            console.log(res.data);
             this.props.getPosts(res.data);
 
         }).catch(err => {
@@ -22,7 +21,7 @@ class MainPage extends Component {
     }
 
     render() {
-        console.log('render=====>',this.props.recentPosts);
+       
         return (
            <div className="text-center">
                <NavBar></NavBar>
@@ -44,7 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getPosts: (allPost) =>dispatch({type:"getPosts", payload:allPost})
+        getPosts: (allPost) =>dispatch({type:"getPosts", payload:allPost}),
     }
 }
 
