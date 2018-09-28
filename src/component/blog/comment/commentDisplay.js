@@ -4,6 +4,8 @@ import Img from '/home/abhishek/Desktop/blogfrontend/src/img.jpg'
 
 class CommentDisplay extends Component {
     render() {
+
+        console.log("commentDisplay======>",this.props.comment);
         return(
             <div className="col-sm-12">
                 <div className="container-fluid">
@@ -11,8 +13,8 @@ class CommentDisplay extends Component {
                         <img src={Img} className="img-responsive img-circle" alt="Avatar" />
                     </div>
                     <div className="col-sm-9">
-                        <h4><b>Abhishek Khutwad</b><small> Sep 29, 2015, 9:12 PM</small></h4>
-                        <p>Keep up the GREAT work! I am cheering for you!!</p>
+                        <h5><b>{this.props.userName}</b><small> {this.props.date}</small></h5>
+                        <p>{this.props.comment}</p>
                         <br/>
                     </div>
                 </div>
