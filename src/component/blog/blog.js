@@ -4,23 +4,17 @@ import BlogInfo from './blogInfo/blogInfo';
 import Comment from './comment/comment';
 import CommentDisplay from './comment/commentDisplay';
 import axios from '../../axiosInstance';
+import { connect } from 'react-redux';
 
 
 class Blog extends Component {
 
-    state = {
-        Post : {}
-    }
-
     componentWillMount = () => {
+        this.props.clearState();
         let url = '/post/id/'+this.props.id;
-
         axios.get(url)
         .then(response => {
-            this.setState({
-                ...this.state,
-                Post: response.data
-            });
+            this.props.savePost(response.data);
         })
         .catch(error => {
             console.log(error);
@@ -29,23 +23,11 @@ class Blog extends Component {
 
 
     render() {
-        console.log('render blog======>',this.state.Post)
         return(
                 <div className="container">
                     <div className="col-sm-9 col-sm-offset-1">
-                        <AuthorInfo 
-                        authorName={this.state.Post.authorName}
-                        date={this.state.Post.date}
-                        views={this.state.Post.views} 
-                        /><hr/>
-
-                        <BlogInfo
-                        
-                        title={this.state.Post.title}
-                        image={this.state.Post.image} 
-                        postContent={this.state.Post.postContent}
-                        
-                        />
+                        <AuthorInfo /><hr/>
+                        <BlogInfo/>
                         <Comment></Comment>
                         <CommentDisplay></CommentDisplay>
                         <CommentDisplay></CommentDisplay>
@@ -55,4 +37,12 @@ class Blog extends Component {
     }
 }
 
-export default Blog;
+const mapDispatchToProps = dispatch => {
+
+    return {
+        clearState : (Post) => dispatch({type:"CLEAR"}),
+        savePost : (Post) => dispatch({type:"SAVE_POST", payload:Post})
+    }
+}
+
+export default connect(null,mapDispatchToProps)(Blog);
