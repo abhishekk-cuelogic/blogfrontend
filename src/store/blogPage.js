@@ -12,13 +12,19 @@ const reducer = (state = initialState , action) => {
                 Post : {}
             }
 
-        case "SAVE_POST": 
+        case "GET_POST": 
             return {
                 ...state,
                 Post : action.payload
             }
         
         case "LIKED" :
+            return {
+                ...state,
+                Post : action.payload
+            }
+
+        case "SAVE_COMMENT" : 
             return {
                 ...state,
                 Post : action.payload
