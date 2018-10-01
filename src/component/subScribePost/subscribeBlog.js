@@ -1,23 +1,71 @@
 import React, {Component} from 'react';
-import Ronaldo from '/home/abhishek/Desktop/blogfrontend/src/ronaldo.jpeg';
+import axios from '../../axiosInstance';
+import { withRouter } from 'react-router';
 
 
-const subscribeBlog = () => {
-    return (
-            <div>
+class SubscribeBlog extends Component {
+
+    state = {
+        posts : []
+    }
+
+
+    componentDidMount = () => {
+        axios.get('/post/yml')
+        .then(res => {
+            console.log('subscibe=====>',res.data);
+            this.setState({
+                ...this.state,
+                posts : res.data
+            })
+        })
+        .catch(err => {
+            alert(err);
+        })
+    }
+
+    increseView = (id) => {
+        let postUrl = '/blog/'+id;
+        let url = '/post/view/'+id;
+
+        axios.put(url)
+        .then(res => {
+            this.props.history.push(postUrl);
+        })
+        .catch(err => {
+            alert(err);
+        })
+
+    }
+
+
+    render() {
+
+        let yml = this.state.posts.map(obj => {
+            let img= "http://localhost:2700/"+obj.image;
+            return(
+            <a onClick={()=>this.increseView(obj._id)}><div className="row well">
                 <div className="col-sm-3">
                     <div>
-                    <p>John</p>
-                    <img src={Ronaldo} className="img-responsive" alt="Avatar"></img>
+                    <img src={img} className="img-responsive" alt="Avatar"></img>
                     </div>
                 </div>
                 <div className="col-sm-9">
                     <div>
-                        <p>Just Forgot that I had to mention something about someone to someone about how I forgot something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
+                        <b><p>{obj.title}</p></b>
                     </div>
                 </div>
-            </div>              
+            </div></a>         
+            )
+           
+        })
+        
+        return (
+            <div>
+                {yml}
+            </div>             
     )
+    } 
 }
 
-export default subscribeBlog;
+export default withRouter(SubscribeBlog);

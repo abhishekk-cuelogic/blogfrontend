@@ -6,7 +6,7 @@ class SubscribePost extends Component {
 
     render() {
         return (
-            <div className="row well">
+            <div>
                 <SubscribeBlog></SubscribeBlog>
             </div>
         )
