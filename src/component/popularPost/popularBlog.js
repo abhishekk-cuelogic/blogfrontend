@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import Ronaldo from '/home/abhishek/Desktop/blogfrontend/src/ronaldo.jpeg';
-import Img from '/home/abhishek/Desktop/blogfrontend/src/img.jpg';
-import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from '../../axiosInstance';
-
+import { withRouter } from 'react-router';
 
 class PopularBlog extends Component {
 
@@ -24,6 +21,20 @@ class PopularBlog extends Component {
         })
     }
 
+    increseView = (link) => {
+       
+        let url = '/post/view/'+link;
+        let posturl = '/blog/'+link;
+  
+        axios.put(url)
+        .then(res => {
+          this.props.history.push(posturl);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+
 
 
     render() {
@@ -38,17 +49,17 @@ class PopularBlog extends Component {
              firstCatagory = this.state.popularPost[0].catagory;
              firstTitle = this.state.popularPost[0].title;
              firstImage = 'http://localhost:2700/'+this.state.popularPost[0].image;
-             firstLink = 'blog/'+this.state.popularPost[0]._id
+             firstLink = this.state.popularPost[0]._id
 
              secondCatagory = this.state.popularPost[1].catagory;
              secondTitle = this.state.popularPost[1].title;
              secondImage = 'http://localhost:2700/'+this.state.popularPost[1].image;
-             secondLink = 'blog/'+this.state.popularPost[1]._id
+             secondLink = this.state.popularPost[1]._id
 
              thirdCatagory = this.state.popularPost[2].catagory;
              thirdTitle = this.state.popularPost[2].title;
              thirdImage = 'http://localhost:2700/'+this.state.popularPost[2].image;
-             thirdLink = 'blog/'+this.state.popularPost[2]._id
+             thirdLink = this.state.popularPost[2]._id
         }
 
 
@@ -57,33 +68,33 @@ class PopularBlog extends Component {
             <div className="carousel-inner" role="listbox">
 
                     <div className="item active">
-                    <Link to={firstLink}>
+                    <a onClick={()=>this.increseView(firstLink)}>
                         <img className="img-responsive" src={firstImage} alt="Imag"></img>
                         <div className="carousel-caption">
                             <h3>{firstCatagory}</h3>
-                            <p>{firstTitle}</p>
+                            <b><p>{firstTitle}</p></b>
                         </div>
-                        </Link>      
+                        </a>      
                     </div>
                     
                      <div className="item">
-                     <Link to={secondLink}>
+                     <a onClick={()=>this.increseView(secondLink)}>
                         <img className="img-responsive" src={secondImage} alt="Imag"></img>
                         <div className="carousel-caption">
                             <h3>{secondCatagory}</h3>
-                            <p>{secondTitle}</p>
+                            <b><p>{secondTitle}</p></b>
                         </div>
-                        </Link>      
+                        </a>      
                     </div>
 
                     <div className="item">
-                    <Link to={thirdLink}>
+                    <a onClick={()=>this.increseView(thirdLink)}>
                         <img className="img-responsive" src={thirdImage} alt="Imag"></img>
                         <div className="carousel-caption">
                             <h3>{thirdCatagory}</h3>
-                            <p>{thirdTitle}</p>
+                            <b><p>{thirdTitle}</p></b>
                         </div>
-                        </Link>       
+                        </a>       
                     </div>
            </div>
     )}
@@ -95,4 +106,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(PopularBlog);
+export default withRouter(connect(mapStateToProps)(PopularBlog));
