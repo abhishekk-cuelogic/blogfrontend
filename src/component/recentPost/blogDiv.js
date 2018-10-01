@@ -19,7 +19,7 @@ class  BlogDiv extends Component {
   }
 
   render() {
-    let img= "http://localhost:2700/"+this.props.post.image;
+    let img= 'http://localhost:2700/'+this.props.post.image;
     return (
         <div className="col-sm-3">
           <div className="well">
