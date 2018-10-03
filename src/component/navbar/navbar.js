@@ -40,9 +40,9 @@ class Navbar extends Component {
 
         if(window.location.href !== 'http://localhost:3000/signup' && window.location.href !== 'http://localhost:3000/signin' ) {
                searchComponent = <ul className="nav navbar-nav navbar-center">
-                                    <li><a><b>SPORTS</b></a></li>
-                                    <li><a><b>TECH</b></a></li>
-                                    <li><a><b>SCIENCE</b></a></li>
+                                    <li><Link to='/search/sports'><b>SPORTS</b></Link></li>
+                                    <li><Link to='/search/technology'><b>TECHNOLOGY</b></Link></li>
+                                    <li><Link to='/search/economics'><b>ECONOMICS</b></Link></li>
                                </ul>
                } else {
                    searchComponent = null;

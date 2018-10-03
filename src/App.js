@@ -9,6 +9,7 @@ import WriteBlog from './component/writeBlog/writeBlog';
 import ForgotPassword from './component/forgotPassword/forgotPassword';
 import ChangePassword from './component/forgotPassword/passwordSet';
 import DashBoard from './component/dashboard/dashboard';
+import Search from './component/search/search';
 
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
               <Route exact path='/forgotpassword' component={ForgotPassword}/>
               <Route exact path='/changepassword/:token' component={ChangePassword}/>
               <Route exact path='/dashboard' component={DashBoard}/>
+              <Route exact path='/search/:catagory' component = {Search}/>
           </Switch>
          </div>
     );
