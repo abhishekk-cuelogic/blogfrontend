@@ -57,7 +57,7 @@ class AuthorInfo extends Component {
 
     onFollow = () => {
         if(localStorage.getItem('token') === null) {
-            alert('You need to signin to like this post');
+            alert('You need to signin to follow ');
         } else {
             if(!this.state.follow) {
                 let url = 'profile/follower/'+this.props.Post.userName;

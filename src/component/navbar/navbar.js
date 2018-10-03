@@ -1,24 +1,31 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import { connect } from 'react-redux';
 
 class Navbar extends Component {
+
+    state = {
+        loggedIn : true
+    }
 
     signOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userName');
-        this.props.onLoggedOut();
+        this.setState({
+            ...this.state,
+            loggedIn : false
+        })
     }
 
     render() {
         let navComponent,searchComponent;
 
-        if(!this.props.loggedIn) {
+        if(localStorage.getItem('token') === null) {
             navComponent = <ul className="nav navbar-nav navbar-right">
              <li><Link to={"/signup"} onClick={this.props.onNavigationClicked}><span className="glyphicon glyphicon-user"></span> Sign Up</Link></li>
              <li><Link to={"/signin"} onClick={this.props.onNavigationClicked}><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>
              </ul> 
-        } else {
+        }
+        if(localStorage.getItem('token')) {
             navComponent = <ul className="nav navbar-nav navbar-right">
                 <li className="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span className="glyphicon glyphicon-user"></span> Profile </a>
                     <ul className="dropdown-menu">
@@ -31,7 +38,7 @@ class Navbar extends Component {
             </ul>  
         }
 
-        if(!this.props.clicked || this.props.loggedIn ) {
+        if(window.location.href !== 'http://localhost:3000/signup' && window.location.href !== 'http://localhost:3000/signin' ) {
                searchComponent = <ul className="nav navbar-nav navbar-center">
                                     <li><a><b>SPORTS</b></a></li>
                                     <li><a><b>TECH</b></a></li>
@@ -56,18 +63,4 @@ class Navbar extends Component {
     
 }
 
-const mapStateToProps = state => {
-    return {
-        loggedIn:state.navReducer.loggedIn,
-        clicked:state.navReducer.clicked
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onLoggedOut: () => dispatch({type:"LOGGEDOUT"}),
-        onNavigationClicked: () => dispatch({type:"NAVCLICKED",payload:5})
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Navbar);
+export default Navbar;

@@ -7,13 +7,11 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import { createStore , combineReducers } from 'redux';
-import { Provider } from 'react-redux';
-import NavigationReducer from './store/navigation'; 
+import { Provider } from 'react-redux'; 
 import mainPageReducer from './store/mainPage';
 import blogPageReducer from './store/blogPage';
 
 const store = createStore(combineReducers({
-    navReducer: NavigationReducer,
     mainReducer: mainPageReducer,
     blogReducer : blogPageReducer
 }));
