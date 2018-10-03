@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 import validator from 'validator';
@@ -6,22 +6,22 @@ import validator from 'validator';
 class SignUp extends Component {
 
 
-    valiadate = (email,password) => {
+    valiadate = (email, password) => {
 
-        if(validator.isEmpty(email)){
-           alert('plese enter email');
+        if (validator.isEmpty(email)) {
+            alert('plese enter email');
             return false
         }
-        
-        if(validator.isEmpty(password)){
+
+        if (validator.isEmpty(password)) {
             alert('please enter password');
             return false;
         }
 
-        if(!validator.isEmail(email)) {
+        if (!validator.isEmail(email)) {
             alert('plese enter valid email');
             return false;
-            
+
         }
 
         return true;
@@ -30,26 +30,35 @@ class SignUp extends Component {
 
 
     signUp = () => {
-        let email=document.getElementById('email').value;
-        let password=document.getElementById('pwd').value;
-        let confirmpassword=document.getElementById('cpwd').value;
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('pwd').value;
+        let confirmpassword = document.getElementById('cpwd').value;
 
         if (password !== confirmpassword) {
-           alert('please confirm your password again');
+            alert('please confirm your password again');
         } else {
-            if(this.valiadate(email,password)) {
+            if (this.valiadate(email, password)) {
                 axios.post('/', {
-                    username:email,
-                    password:password
-                  })
-                  .then( (response) => {
-                    alert(response.data);
-                  })
-                  .catch( (error) => {
-                    alert(error);
-                  });
+                    username: email,
+                    password: password
+                })
+                    .then((response) => {
+                        axios.post('/profile', {
+                            userName: email,
+                            fullName:'',
+                            contact: '',
+                            skills: '',
+                        })
+                        .then(res => {})
+                        .catch(err => {})
+
+                        alert(response.data);
+                    })
+                    .catch((error) => {
+                        alert(error);
+                    });
             }
-        }     
+        }
     }
 
     render() {
@@ -68,7 +77,7 @@ class SignUp extends Component {
                         <input type="password" className="form-control" id="pwd"></input>
                     </div>
 
-                     <div className="form-group">
+                    <div className="form-group">
                         <label>Confirm Password</label>
                         <input type="password" className="form-control" id="cpwd"></input>
                     </div>
@@ -76,7 +85,7 @@ class SignUp extends Component {
                     <button type="button" className="btn btn-success" onClick={this.signUp}>SignUp</button>
                 </form>
             </div>
-            
+
         )
     }
 }

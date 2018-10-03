@@ -5,6 +5,36 @@ import axios from '../../../axiosInstance';
 
 class AuthorInfo extends Component {
 
+    state = {
+        follow : false
+    }
+
+
+    componentWillMount = () => {
+        let userName = localStorage.getItem('userName');
+        let url = 'profile/following/'+userName;
+
+        axios.get(url)
+        .then(res => {
+            console.log('following====>',res.data);
+
+            if(res.data !== null) {
+                res.data.forEach(obj => {
+                    if(obj.userName === this.props.Post.userName) {
+                       this.setState({
+                           ...this.state,
+                           follow : true
+                       })
+                    }
+                });
+            }
+            
+        })
+        .catch(err => {
+            alert(err);
+        }) 
+    }
+
     onLiked = () => {
             if(localStorage.getItem('token') === null) {
                 alert('You need to signin to like this post');
@@ -25,13 +55,40 @@ class AuthorInfo extends Component {
             }
     }
 
+    onFollow = () => {
+        if(localStorage.getItem('token') === null) {
+            alert('You need to signin to like this post');
+        } else {
+            if(!this.state.follow) {
+                let url = 'profile/follower/'+this.props.Post.userName;
+                let userName = localStorage.getItem('userName');
+                
+                axios.put(url, {
+                    userName : userName
+                })
+                .then(res => {
+                    alert(res.data);
+                })
+                .catch (err => {
+                    alert(err);
+                })
+            }
+            
+        }
+    }
+
 
 
 
     render() {
-        let likes,likename,username;
+        let likes,likename,username,follow;
 
         likename = "LIKE";
+        if(this.state.follow) {
+            follow = 'FOLLOWING'
+        } else  {
+            follow = 'FOLLOW'
+        }
 
         if(this.props.Post.likes !== undefined){
             console.log('authInfo====>',this.props.Post);
@@ -54,10 +111,13 @@ class AuthorInfo extends Component {
                 <div className="col-sm-10">
                     <h4><b>{this.props.Post.authorName}</b><small> {this.props.Post.date}</small></h4>
                     <button type="button" className="btn btn-default btn-sm" onClick={this.onLiked}>
-                      <span className="glyphicon glyphicon-thumbs-up"></span> {likename} {likes} 
+                      <span className="glyphicon glyphicon-thumbs-up"></span> {likename} <b>{likes}</b> 
                     </button>
                     <button type="button" className="btn btn-default btn-sm">
                         Views {this.props.Post.views}
+                    </button>
+                    <button type="button" className="btn btn-default btn-sm" onClick={this.onFollow}>
+                        <b>{follow}</b>
                     </button>
                     <br/>
                 </div>
