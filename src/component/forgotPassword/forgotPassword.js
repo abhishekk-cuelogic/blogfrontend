@@ -11,7 +11,7 @@ class ForgotComponent extends Component {
             email:userName
         })
         .then(res => {
-            console.log(res);
+            alert(res.data.message);
         })
     }
 
