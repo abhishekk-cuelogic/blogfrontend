@@ -67,7 +67,10 @@ class AuthorInfo extends Component {
                     userName : userName
                 })
                 .then(res => {
-                    alert(res.data);
+                    this.setState({
+                        ...this.state,
+                        follow : true
+                    })
                 })
                 .catch (err => {
                     alert(err);
