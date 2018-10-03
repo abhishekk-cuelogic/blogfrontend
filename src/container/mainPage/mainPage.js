@@ -27,7 +27,7 @@ class MainPage extends Component {
                <NavBar></NavBar>
                <RecentPost recentPosts={this.props.recentPosts}></RecentPost><hr/>
                <PopularPost></PopularPost><hr/>
-               <Footer></Footer>
+               {/* <Footer></Footer> */}
            </div> 
             
         )
