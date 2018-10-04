@@ -52,9 +52,9 @@ class SubscribeBlog extends Component {
                     </div>
                 </div>
                 <div className="col-sm-9">
-                    <div className="text-left">
+                    <div className="text-left" style={{color:'black'}}>
                         <b><p>{obj.catagory}</p></b>
-                        <b><p>{obj.title}</p></b>
+                        <p>{obj.title}</p>
                     </div>
                 </div>
             </div></a> 
