@@ -42,6 +42,15 @@ class BlogForm extends Component {
             .catch( err => {
                 alert(err);
             })
+        
+        let activity = 'You posted blog '+title+' on '+new Date();
+
+        axios.put('/useractivity',{
+            userName:userName,
+            activity:activity
+        })
+        .then(res => {})
+        .catch(err => {alert(err);})
 
         console.log(this.state.content);
     }

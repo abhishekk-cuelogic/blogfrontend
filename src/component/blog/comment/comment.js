@@ -7,6 +7,9 @@ class Comment extends Component {
 
     submitComment = () => {
         let userName,url,commentData;
+
+        let activity = 'You Commented on ' + this.props.Post.title + ' on ' + new Date();
+
         if(localStorage.getItem('userName') === null) {
             alert('You need to signin to comment on this post');
         } else {
@@ -25,6 +28,13 @@ class Comment extends Component {
             .catch(error => {
                 alert(error);
             })
+
+            axios.put('/useractivity',{
+                userName : userName,
+                activity: activity
+            })
+            .then(res => {})
+            .catch(err => {alert(err);})
 
         }
     }
