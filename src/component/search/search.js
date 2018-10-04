@@ -4,67 +4,83 @@ import axios from '../../axiosInstance';
 
 class Search extends Component {
 
+    state = {
+        posts: []
+    }
 
     componentWillReceiveProps = () => {
-        let catagory=window.location.href.split('/')[4];
-        let url = '/post/catagory/'+catagory;
+        let catagory = window.location.href.split('/')[4];
+        let url = '/post/catagory/' + catagory;
 
         axios.get(url)
-        .then(res => {
-            console.log(res.data);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            .then(res => {
+                console.log(res.data);
+                this.setState({
+                    ...this.state,
+                    posts: res.data
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     componentWillMount = () => {
-        let catagory=window.location.href.split('/')[4];
-        let url = '/post/catagory/'+catagory;
+        let catagory = window.location.href.split('/')[4];
+        let url = '/post/catagory/' + catagory;
 
         axios.get(url)
+            .then(res => {
+                console.log(res.data);
+                this.setState({
+                    ...this.state,
+                    posts: res.data
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    increseView = (id) => {
+        let url = '/post/view/'+id;
+        let posturl = '/blog/'+id;
+  
+        axios.put(url)
         .then(res => {
-            console.log(res.data);
+          this.props.history.push(posturl);
         })
-        .catch(err => {
-            console.log(err);
+        .catch(error => {
+          console.log(error);
         })
     }
 
 
     render() {
+
+
+        let searchResults = this.state.posts.map(obj => {
+
+            let img = 'http://localhost:2700/'+obj.image
+            return <div class="col-sm-4">
+                   <a onClick={()=>this.increseView(obj._id)}><div class="panel panel-success">
+                        <div class="panel-heading"><b>{obj.catagory}</b></div>
+                        <div class="panel-body"><img src={img}  height='150px' width='320px' alt="Image" />
+                            <div class="panel-footer">{obj.title}</div>
+                        </div>
+                    </div></a>
+            </div>
+        })
+
         return (
             <div>
                 <NavBar></NavBar>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                            <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"  alt="Image" />
-                                <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                            <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"  alt="Image" />
-                                <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                            <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"  alt="Image" />
-                                <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                            </div>
-                        </div>
+                <div class="container">
+                    <div class="row">
+                        {searchResults}
                     </div>
                 </div>
             </div>
-            </div>   
         )
     }
 }
