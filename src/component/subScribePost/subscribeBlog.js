@@ -44,18 +44,21 @@ class SubscribeBlog extends Component {
         let yml = this.state.posts.map(obj => {
             let img= "http://localhost:2700/"+obj.image;
             return(
-            <a onClick={()=>this.increseView(obj._id)}><div className="row well">
+                <div>
+            <a onClick={()=>this.increseView(obj._id)}><div className="row ">
                 <div className="col-sm-3">
                     <div>
                     <img src={img} className="img-responsive" alt="Avatar"></img>
                     </div>
                 </div>
                 <div className="col-sm-9">
-                    <div>
-                        <b><p>{obj.title}</p></b>
+                    <div className="text-left" style={{color:'black'}}>
+                        <b><p>{obj.catagory}</p></b>
+                        <p>{obj.title}</p>
                     </div>
                 </div>
-            </div></a>         
+            </div></a> 
+            <br/><hr/></div>       
             )
            
         })

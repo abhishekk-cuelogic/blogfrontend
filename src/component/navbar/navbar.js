@@ -32,6 +32,7 @@ class Navbar extends Component {
                     <li><Link to="/profile"><b>Your Profile</b></Link></li><br/>
                     <li><Link to="/writeblog"><b>Write Blog</b></Link></li><br/>
                     <li><Link to="/dashboard"><b>DashBoard</b></Link></li><br/>
+                    <li><Link to="/myblog"><b>MyBlogs</b></Link></li><br/>
                     <li><Link to="/" onClick={this.signOut}><b>Sign Out</b></Link></li>
                     </ul>
                 </li>
