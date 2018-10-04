@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
+import UserActivity from './useractivity';
 
 
 class DashBoard extends Component {
@@ -120,6 +121,11 @@ class DashBoard extends Component {
                         </div>
                     </div>
                 </div>
+                
+                <div>
+                    <UserActivity/>
+                </div>
+                
             </div>
         )
     }

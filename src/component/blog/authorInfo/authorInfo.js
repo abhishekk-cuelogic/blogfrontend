@@ -38,6 +38,10 @@ class AuthorInfo extends Component {
     }
 
     onLiked = () => {
+
+        let activity = 'You liked Post ' + this.props.Post.title + ' on ' + new Date();
+
+
         if (localStorage.getItem('token') === null) {
             alert('You need to signin to like this post');
         } else {
@@ -53,19 +57,30 @@ class AuthorInfo extends Component {
                         this.setState({
                             ...this.setState,
                             like: true,
-                            likes:response.data.likes.length
+                            likes: response.data.likes.length
                         })
                         this.props.Liked(response.data);
                     })
                     .catch(error => {
                         console.log(error);
                     })
+                
+                    axios.put('/useractivity',{
+                        userName : userName,
+                        activity: activity
+                    })
+                    .then(res => {})
+                    .catch(err => {alert(err);})
             }
 
         }
     }
 
     onFollow = () => {
+
+        let activity = 'You Started following ' + this.props.Post.userName + ' on ' + new Date();
+
+
         if (localStorage.getItem('token') === null) {
             alert('You need to signin to follow ');
         } else {
@@ -85,6 +100,13 @@ class AuthorInfo extends Component {
                     .catch(err => {
                         alert(err);
                     })
+
+                    axios.put('/useractivity',{
+                        userName : userName,
+                        activity: activity
+                    })
+                    .then(res => {})
+                    .catch(err => {alert(err);})
             }
 
         }
@@ -92,27 +114,27 @@ class AuthorInfo extends Component {
 
     componentDidMount = () => {
         let data = window.location.href.split('/');
-        let url = '/post/like/'+data[4];
+        let url = '/post/like/' + data[4];
         let userName = localStorage.getItem('userName');
 
         axios.get(url)
-        .then(res =>{
-            res.data.forEach (obj => {
-                if(obj.userName === userName) {
-                    this.setState({
-                        ...this.state,
-                        like : true,
-                    })
-                }
+            .then(res => {
+                res.data.forEach(obj => {
+                    if (obj.userName === userName) {
+                        this.setState({
+                            ...this.state,
+                            like: true,
+                        })
+                    }
+                })
+                this.setState({
+                    ...this.state,
+                    likes: res.data.length
+                })
             })
-            this.setState({
-                ...this.state,
-                likes:res.data.length
+            .catch(err => {
+                alert(err);
             })
-        })
-        .catch (err => {
-            alert(err);
-        })
 
     }
 
