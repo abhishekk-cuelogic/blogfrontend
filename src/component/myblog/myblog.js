@@ -55,9 +55,6 @@ class MyBlog extends Component {
         .catch(err => {alert(err);})
     }
 
-
-
-
     render() {
 
         console.log('render====>', this.state.posts);
@@ -67,7 +64,8 @@ class MyBlog extends Component {
         if (this.state.posts !== undefined) {
             posts=this.state.posts.map((obj,index) => {
                 let img = 'http://localhost:2700/'+obj.image
-                let blogUrl = '/blog/'+obj._id
+                let blogUrl = '/blog/'+obj._id;
+                let editUrl = '/editblog/'+obj._id
                 return <div><div className="row ">
                 <div className="col-sm-3" style={{color:'black'}}>
                     <div>
@@ -82,6 +80,9 @@ class MyBlog extends Component {
                         <button type="button" class="btn btn-default" onClick={()=>this.deleteBlog(obj._id,obj.title,index)}>
                             <span class="glyphicon glyphicon-trash"></span> DELETE
                         </button>
+                        <Link to={editUrl}><button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span> EDIT
+                        </button></Link>
                     </div>
                 </div>
             </div>
