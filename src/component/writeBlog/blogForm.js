@@ -73,7 +73,7 @@ class BlogForm extends Component {
             'Content-Type': 'multipart/form-data'
             }})
             .then(res => {
-                alert(res);
+                alert(res.data);
             })
             .catch( err => {
                 alert(err);

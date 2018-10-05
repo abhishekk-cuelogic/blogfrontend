@@ -12,6 +12,7 @@ import DashBoard from './component/dashboard/dashboard';
 import Search from './component/search/search';
 import MyBlog from './component/myblog/myblog';
 import AuthorProfile from './component/authorprofile/authorprofile';
+import EditBlog from './component/editBlog/editBlog';
 
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
               <Route exact path='/blog/:id' component={BlogPage}/>
               <Route exact path='/profile' component={ProfilePage}/>
               <Route exact path="/writeblog" component={WriteBlog}/>
+              <Route exact path="/editblog/:id" component={EditBlog}/>
               <Route exact path='/forgotpassword' component={ForgotPassword}/>
               <Route exact path='/changepassword/:token' component={ChangePassword}/>
               <Route exact path='/dashboard' component={DashBoard}/>
