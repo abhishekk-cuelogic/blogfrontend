@@ -21,13 +21,16 @@ class  BlogDiv extends Component {
   render() {
     let img= 'http://localhost:2700/'+this.props.post.image;
     return (
-        <div className="col-sm-3">
-          <div className="well">
-            <img height="145px" width="257px" src={img} alt="blogimg"></img>
+        <div className="col-sm-3" style={{textAlign : 'left'}}>
+           <p><b>{this.props.post.catagory}</b></p>
+          <div>
+            <img height="145px" width="270px" src={img} alt="blogimg"></img>
             <p><br/>
-               <b>{this.props.post.title.slice(0,60)}</b> 
-            </p>
-            <button className="btn btn-success" onClick={this.increseView}>Read More</button>
+               <h4><b>{this.props.post.title.slice(0,60)}</b></h4>
+               <b>{this.props.post.date}</b> 
+            </p><br/>
+            
+            <button className="btn btn-default btn-block" onClick={this.increseView}>Read More</button>
           </div>
         </div>
     )
