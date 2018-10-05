@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Ronaldo from '/home/abhishek/Desktop/blogfrontend/src/ronaldo.jpeg';
 import { connect } from 'react-redux';
 import axios from '../../../axiosInstance';
+import {Link} from 'react-router-dom';
 
 class AuthorInfo extends Component {
 
@@ -153,19 +154,19 @@ class AuthorInfo extends Component {
             likename = "LIKED"
         }
 
-
+        let authorprofile = '/authorprofile/'+this.props.Post.userName;
         return (
             <div className="container-fluid">
                 <div className="col-sm-2 text-center">
                     <img src={Ronaldo} className="img-responsive img-rounded" alt="Avatar" />
                 </div>
                 <div className="col-sm-10">
-                    <h4><b>{this.props.Post.authorName}</b><small> {this.props.Post.date}</small></h4>
+                    <h4><Link to={authorprofile}><b style={{color:'black'}}>{this.props.Post.authorName}</b></Link><small> {this.props.Post.date}</small></h4>
                     <button type="button" className="btn btn-default btn-sm" onClick={this.onLiked}>
-                        <span className="glyphicon glyphicon-thumbs-up"></span> {likename} <b>{this.state.likes}</b>
+                        <span className="glyphicon glyphicon-thumbs-up"></span> <b>{likename}</b> {this.state.likes}
                     </button>
                     <button type="button" className="btn btn-default btn-sm">
-                        Views {this.props.Post.views}
+                        <b>Views</b> {this.props.Post.views}
                     </button>
                     <button type="button" className="btn btn-default btn-sm" onClick={this.onFollow}>
                         <b>{follow}</b>
