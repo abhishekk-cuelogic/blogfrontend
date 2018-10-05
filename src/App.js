@@ -11,6 +11,7 @@ import ChangePassword from './component/forgotPassword/passwordSet';
 import DashBoard from './component/dashboard/dashboard';
 import Search from './component/search/search';
 import MyBlog from './component/myblog/myblog';
+import AuthorProfile from './component/authorprofile/authorprofile';
 
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
               <Route exact path='/dashboard' component={DashBoard}/>
               <Route exact path='/search/:catagory' component = {Search}/>
               <Route exact path='/myblog' component = {MyBlog}/>
+              <Route exact path='/authorprofile/:userName' component = {AuthorProfile}/>
           </Switch>
          </div>
     );
