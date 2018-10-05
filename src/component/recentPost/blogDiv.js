@@ -30,7 +30,7 @@ class  BlogDiv extends Component {
                <b>{this.props.post.date}</b> 
             </p><br/>
             
-            <button className="btn btn-default btn-block" onClick={this.increseView}>Read More</button>
+            <button className="btn btn-default btn-block" onClick={this.increseView}><b>Read More</b></button>
           </div>
         </div>
     )
