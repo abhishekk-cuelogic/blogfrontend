@@ -27,14 +27,21 @@ class MyBlog extends Component {
 
     deleteBlog = (id,title,index) => {
         let url = '/post/'+id;
-        let activity = 'You Deleted blog' + title + ' on ' + new Date();
+        let activity = 'You Deleted blog ' + title + ' on ' + new Date();
         let userName = localStorage.getItem('userName');
         console.log('index',index);
         console.log('state',this.state.posts);
 
+        let allposts = [...this.state.posts];
+
         axios.delete(url)
         .then(res => {
-            alert(res.data)
+            alert(res.data);
+            allposts.splice(index,1);
+            this.setState({
+                posts : allposts
+            })
+
         })
         .catch(err => {
             alert(err);
