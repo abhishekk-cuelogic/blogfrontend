@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import axios from '../../../axiosInstance';
 import { connect } from 'react-redux';
+import Rating from './rating';
 
 
 class Comment extends Component {
@@ -45,6 +46,9 @@ class Comment extends Component {
         return(
             <div className="col-sm-12">
                 <div className="container-fluid">
+                    <br/>
+                   <h4><b>Rate This Blog</b></h4>
+                   <Rating/><br/>
                    <h4><b>Leave a Comment</b></h4>
                 </div>
                 <form role="form">

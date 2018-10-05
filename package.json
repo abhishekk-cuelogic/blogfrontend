@@ -16,6 +16,8 @@
     "react-render-html": "^0.6.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
+    "react-star-rating-component": "^1.4.1",
+    "react-star-ratings": "^2.3.0",
     "react-validation": "^3.0.7",
     "redux": "^4.0.0",
     "validator": "^10.8.0"
