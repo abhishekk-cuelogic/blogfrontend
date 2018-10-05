@@ -1,12 +1,47 @@
 import React,{Component} from 'react';
-//import BlogEditor from './blogEditor';
 import { Editor } from '@tinymce/tinymce-react';
 import axios from '../../axiosInstance';
+import validator from 'validator';
+
 
 class BlogForm extends Component {
 
     state={
         content:null
+    }
+
+    validate = (title,authorname,catagory) => {
+        
+        var imagefile = document.getElementById('img');
+
+          if(validator.isEmpty(title)) {
+              alert('Plese Enter Title');
+              return false;
+          }
+
+          if(validator.isEmpty(authorname)) {
+              alert('Plese Enter AuthorName');
+              return false;
+          }
+
+          if(validator.isEmpty(catagory)) {
+              alert('Plese Enter Catagory');
+              return false;
+          }
+
+          if(imagefile.files.length === 0) {
+              alert('Plese attach Imagefile to your Blog ');
+              alert(this.state.content);
+              return false;
+          }
+
+          if(this.state.content === null) {
+              alert('Content need to be long and Meaningful');
+              return false;
+          }
+
+          return true;
+
     }
 
 
@@ -25,12 +60,13 @@ class BlogForm extends Component {
         let content=this.state.content;
         var imagefile = document.getElementById('img');
 
-        formData.append('userName',userName);
-        formData.append('title',title);
-        formData.append('authorName',authorName);
-        formData.append('catagory',catagory);
-        formData.append('content',content);
-        formData.append("myImage", imagefile.files[0]);
+        if(this.validate(title,authorName,catagory)) {
+            formData.append('userName',userName);
+            formData.append('title',title);
+            formData.append('authorName',authorName);
+            formData.append('catagory',catagory);
+            formData.append('content',content);
+            formData.append("myImage", imagefile.files[0]);
 
         axios.post('/post', formData, {
             headers: {
@@ -53,6 +89,7 @@ class BlogForm extends Component {
         .catch(err => {alert(err);})
 
         console.log(this.state.content);
+        }        
     }
 
 
