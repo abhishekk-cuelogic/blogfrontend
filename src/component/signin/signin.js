@@ -7,7 +7,6 @@ import {Link} from 'react-router-dom';
 
 class SignIn extends Component {
 
-
     validate = (email,password) => {
     
         if(validator.isEmpty(email)){
@@ -29,7 +28,6 @@ class SignIn extends Component {
         return true;
 
     }
-
 
     signIn = () => {
 

@@ -13,6 +13,7 @@ import Search from './component/search/search';
 import MyBlog from './component/myblog/myblog';
 import AuthorProfile from './component/authorprofile/authorprofile';
 import EditBlog from './component/editBlog/editBlog';
+import Modal from './component/modal/modal';
 
 
 class App extends Component {
@@ -33,6 +34,7 @@ class App extends Component {
               <Route exact path='/search/:catagory' component = {Search}/>
               <Route exact path='/myblog' component = {MyBlog}/>
               <Route exact path='/authorprofile/:userName' component = {AuthorProfile}/>
+              <Route exact path='/modal' component = {Modal}/>
           </Switch>
          </div>
     );
