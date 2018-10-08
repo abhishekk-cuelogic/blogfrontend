@@ -34,6 +34,8 @@ class Blog extends Component {
                     userName={obj.userName}
                     comment={obj.commentData}
                     date={obj.date}
+                    id={obj._id}
+                    postId={this.props.Post._id}
                     />
             })
         }

@@ -1,13 +1,56 @@
 import React,{Component} from 'react';
-import Img from '/home/abhishek/Desktop/blogfrontend/src/img.jpg'
+import Img from '/home/abhishek/Desktop/blogfrontend/src/img.jpg';
+import axios from '../../../axiosInstance';
+import Modal from '../../modal/modal';
 
 
 class CommentDisplay extends Component {
-    render() {
 
+    state = {
+        response: '',
+        show: false
+    }
+
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
+    }
+
+    deleteComment = (id,postId) => {
+        let url = '/post/comment/'+postId+'/'+id;
+
+        axios.put(url,{
+            commentId:id
+        })
+        .then(res=>{
+            this.setState({
+                ...this.state,
+                response: res.data,
+                show: true
+            })
+            this.fade();
+        })
+        .catch(err=>{})
+    }
+
+    render() {
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
+        let comp = null;
+        if(localStorage.getItem('userName') === 'admin@gmail.com') {
+            comp = <button type="button" className="btn btn-primary" onClick={()=>this.deleteComment(this.props.id,this.props.postId)}>Delete</button>    
+        }
         console.log("commentDisplay======>",this.props.comment);
         return(
             <div className="col-sm-12">
+                {message}
                 <div className="container-fluid">
                     <div className="col-sm-2 col-sm-offset-1 text-center">
                         <img src={Img} className="img-responsive img-circle" alt="Avatar" />
@@ -15,7 +58,10 @@ class CommentDisplay extends Component {
                     <div className="col-sm-9">
                         <h5><b>{this.props.userName}</b><small> {this.props.date}</small></h5>
                         <p>{this.props.comment}</p>
-                        <br/>
+                        <div>
+                            {comp}
+                            <br/>
+                        </div>
                     </div>
                 </div>
             </div>           
