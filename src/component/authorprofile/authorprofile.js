@@ -1,5 +1,4 @@
 import React,{ Component } from 'react';
-import img from '/home/abhishek/Desktop/blogfrontend/src/ronaldo.jpeg';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 

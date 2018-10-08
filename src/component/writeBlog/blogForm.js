@@ -2,12 +2,24 @@ import React,{Component} from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import axios from '../../axiosInstance';
 import validator from 'validator';
+import Modal from '../modal/modal';
 
 
 class BlogForm extends Component {
 
     state={
-        content:null
+        content:null,
+        response: '',
+        show: false
+    }
+
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
     }
 
     validate = (title,authorname,catagory) => {
@@ -15,28 +27,52 @@ class BlogForm extends Component {
         var imagefile = document.getElementById('img');
 
           if(validator.isEmpty(title)) {
-              alert('Plese Enter Title');
+              this.setState({
+                ...this.state,
+                response: 'plese Enter Title',
+                show: true
+                })
+            this.fade();
               return false;
           }
 
           if(validator.isEmpty(authorname)) {
-              alert('Plese Enter AuthorName');
+              this.setState({
+                ...this.state,
+                response: 'plese enter AuthorName',
+                show: true
+            })
+            this.fade();
               return false;
           }
 
           if(validator.isEmpty(catagory)) {
-              alert('Plese Enter Catagory');
+              this.setState({
+                ...this.state,
+                response: 'plese enter Catagory',
+                show: true
+            })
+            this.fade();
               return false;
           }
 
           if(imagefile.files.length === 0) {
-              alert('Plese attach Imagefile to your Blog ');
-              alert(this.state.content);
+              this.setState({
+                ...this.state,
+                response: 'Plese attach Imagefile to your Blog',
+                show: true
+            })
+            this.fade();
               return false;
           }
 
           if(this.state.content === null) {
-              alert('Content need to be long and Meaningful');
+              this.setState({
+                ...this.state,
+                response: 'Content need to be long and Meaningful',
+                show: true
+            })
+            this.fade();
               return false;
           }
 
@@ -73,7 +109,12 @@ class BlogForm extends Component {
             'Content-Type': 'multipart/form-data'
             }})
             .then(res => {
-                alert(res.data);
+                this.setState({
+                    ...this.state,
+                    response: res.data,
+                    show: true
+                })
+                this.fade();
             })
             .catch( err => {
                 alert(err);
@@ -94,8 +135,14 @@ class BlogForm extends Component {
 
 
     render() {
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
         return (
             <div className="col-sm-8 col-sm-offset-2">
+            {message}
             <div>
                     <form className="form-horizontal" autoComplete="off">
                             <div className="form-group">

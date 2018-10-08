@@ -2,12 +2,24 @@ import React,{ Component } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import { connect } from 'react-redux';
 import axios from '../../../axiosInstance';
+import Modal from '../../modal/modal';
 
 class Rating extends Component {
 
     state = {
         rating : 1,
-        rate : false
+        rate : false,
+        response: '',
+        show: false
+    }
+
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
     }
 
     componentDidMount = () => {
@@ -37,7 +49,12 @@ class Rating extends Component {
 
     onStarClick(nextValue, prevValue, name) {
         if(localStorage.getItem('token') === null){
-            alert('You need to Sign In to rate this blog');          
+            this.setState({
+                ...this.state,
+                response: 'You need to Sign In to rate this blog',
+                show: true
+            })
+            this.fade();          
         } else {
             let url = '/post/rating/'+this.props.Post._id;
             let userName = localStorage.getItem('userName');
@@ -60,7 +77,12 @@ class Rating extends Component {
                     alert(err);
                 })
             } else {
-                alert('You alredy Rated this post');
+                this.setState({
+                    ...this.state,
+                    response: 'You alredy Rated this post',
+                    show: true
+                })
+                this.fade();
             }
             
             axios.put('/useractivity',{
@@ -76,13 +98,21 @@ class Rating extends Component {
     render() {
         let rating  = this.state.rating;
         console.log('render===>',this.props.Post);
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
         return (
+            <div>
+            {message}
             <StarRatingComponent 
               name="rate1" 
               starCount={5}
               value={rating}
               onStarClick={this.onStarClick.bind(this)}
             />
+            </div>
         )
         
     }

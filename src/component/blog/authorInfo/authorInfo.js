@@ -3,13 +3,16 @@ import Ronaldo from '/home/abhishek/Desktop/blogfrontend/src/ronaldo.jpeg';
 import { connect } from 'react-redux';
 import axios from '../../../axiosInstance';
 import {Link} from 'react-router-dom';
+import Modal from '../../modal/modal';
 
 class AuthorInfo extends Component {
 
     state = {
         follow: false,
         like: false,
-        likes: 0
+        likes: 0,
+        response: '',
+        show: false
     }
 
 
@@ -37,6 +40,14 @@ class AuthorInfo extends Component {
                 alert(err);
             })
     }
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
+    }
 
     onLiked = () => {
 
@@ -44,7 +55,12 @@ class AuthorInfo extends Component {
 
 
         if (localStorage.getItem('token') === null) {
-            alert('You need to signin to like this post');
+            this.setState({
+                ...this.state,
+                response: 'You need to signin to like this post',
+                show: true
+            })
+            this.fade();
         } else {
             if (!this.state.like) {
                 let url = '/post/like/' + this.props.Post._id;
@@ -83,7 +99,12 @@ class AuthorInfo extends Component {
 
 
         if (localStorage.getItem('token') === null) {
-            alert('You need to signin to follow ');
+            this.setState({
+                ...this.state,
+                response: 'You need to signin to follow',
+                show: true
+            })
+            this.fade();
         } else {
             if (!this.state.follow) {
                 let url = 'profile/follower/' + this.props.Post.userName;
@@ -155,8 +176,15 @@ class AuthorInfo extends Component {
         }
 
         let authorprofile = '/authorprofile/'+this.props.Post.userName;
+
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
         return (
             <div className="container-fluid">
+                 {message}
                 <div className="col-sm-2 text-center">
                     <img src={Ronaldo} className="img-responsive img-rounded" alt="Avatar" />
                 </div>

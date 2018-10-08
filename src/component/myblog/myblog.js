@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import Navbar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 import {Link} from 'react-router-dom';
+import Modal from '../modal/modal';
 
 class MyBlog extends Component {
 
     state = {
-        posts: []
+        posts: [],
+        response: '',
+        show: false
     }
 
     componentWillMount = () => {
@@ -24,6 +27,14 @@ class MyBlog extends Component {
                 alert(err);
             })
     }
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
+    }
 
     deleteBlog = (id,title,index) => {
         let url = '/post/'+id;
@@ -36,7 +47,12 @@ class MyBlog extends Component {
 
         axios.delete(url)
         .then(res => {
-            alert(res.data);
+            this.setState({
+                ...this.state,
+                response: res.data,
+                show: true
+            })
+            this.fade();
             allposts.splice(index,1);
             this.setState({
                 posts : allposts
@@ -58,6 +74,11 @@ class MyBlog extends Component {
     render() {
 
         console.log('render====>', this.state.posts);
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
 
         let posts = null;
 
@@ -95,6 +116,7 @@ class MyBlog extends Component {
         return (
             <div>
                 <Navbar />
+                {message}
                 <div class="container">
                     <div class="row">
                         {posts}

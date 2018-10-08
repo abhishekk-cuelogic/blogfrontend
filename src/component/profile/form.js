@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../axiosInstance';
-import img from '/home/abhishek/Desktop/blogfrontend/src/images.png'
+import img from '/home/abhishek/Desktop/blogfrontend/src/images.png';
+import Modal from '../modal/modal';
 
 class Form extends Component {
 
@@ -8,7 +9,9 @@ class Form extends Component {
         fullName: '',
         contact: '',
         skills: '',
-        imgURL : ''
+        imgURL : '',
+        response: '',
+        show: false
     }
 
 
@@ -73,6 +76,14 @@ class Form extends Component {
 
 
     }
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
+    }
 
     updateProfile = () => {
         var formData = new FormData();
@@ -98,7 +109,12 @@ class Form extends Component {
             })
             .then(res => {
                 console.log('updated data====>',res.data);
-                alert(res.data.message);
+                this.setState({
+                    ...this.state,
+                    response: res.data.message,
+                    show: true
+                })
+                this.fade();
             })
             .catch(err => {
                 alert(err);
@@ -108,8 +124,14 @@ class Form extends Component {
 
     render() {
         console.log('render====>',this.state.imgURL);
-        return (
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
+        return (         
             <div>
+                 {message}
                 <div className="col-sm-4 col-sm-offset-4">
                     <img src={this.state.imgURL} className="img-responsive img-rounded" alt="Avatar" /><br /><br />
                 </div>

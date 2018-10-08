@@ -11,21 +11,13 @@ class SignUp extends Component {
         show: false
     }
 
-
-    disMiss = () => {
-        this.setState({
-            ...this.state,
-            show: false
-        })
-    }
-
     fade = () => {
         setTimeout(() => {
             this.setState({
                 ...this.state,
                 show: false
             })
-        }, 1000)
+        }, 2000)
     }
 
 
@@ -125,6 +117,7 @@ class SignUp extends Component {
             <div>
             <div className="text-center">
                 <NavBar></NavBar>
+                {message}
                 <h3><b>SignUp To CueBlog</b></h3>
                 <form className="well col-md-4 col-md-offset-4 text-left">
                     <div className="form-group">
@@ -145,7 +138,6 @@ class SignUp extends Component {
                     <button type="button" className="btn btn-success" onClick={this.signUp}>SignUp</button>
                 </form>
             </div>
-              {message}
             </div>
             
         )

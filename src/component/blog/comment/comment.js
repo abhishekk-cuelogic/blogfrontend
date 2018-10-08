@@ -2,9 +2,24 @@ import React,{Component} from 'react';
 import axios from '../../../axiosInstance';
 import { connect } from 'react-redux';
 import Rating from './rating';
+import Modal from '../../modal/modal';
 
 
 class Comment extends Component {
+
+    state ={
+        response: '',
+        show: false
+    }
+
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
+    }
 
     submitComment = () => {
         let userName,url,commentData;
@@ -12,7 +27,12 @@ class Comment extends Component {
         let activity = 'You Commented on ' + this.props.Post.title + ' on ' + new Date();
 
         if(localStorage.getItem('userName') === null) {
-            alert('You need to signin to comment on this post');
+            this.setState({
+                ...this.state,
+                response: 'You need to signin to comment on this post',
+                show: true
+            })
+            this.fade();
         } else {
             userName = localStorage.getItem('userName');
             commentData = document.getElementById('comment').value;
@@ -43,8 +63,14 @@ class Comment extends Component {
 
 
     render() {
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
         return(
             <div className="col-sm-12">
+                {message}
                 <div className="container-fluid">
                     <br/>
                    <h4><b>Rate This Blog</b></h4>

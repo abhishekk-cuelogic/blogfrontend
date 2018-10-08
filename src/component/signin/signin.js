@@ -4,23 +4,53 @@ import axios from '../../axiosInstance';
 import { connect } from 'react-redux';
 import validator from 'validator';
 import {Link} from 'react-router-dom';
+import Modal from '../modal/modal';
 
 class SignIn extends Component {
+
+    state = {
+        response : '',
+        show:false
+    }
+
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
+    }
 
     validate = (email,password) => {
     
         if(validator.isEmpty(email)){
-            alert('please enter email');
+            this.setState({
+                ...this.state,
+                response:'Please Enter Email',
+                show:true
+            })
+            this.fade();
             return false
         }
         
         if(validator.isEmpty(password)){
-            alert('please enter password');
+            this.setState({
+                ...this.state,
+                response:'please enter password',
+                show:true
+            })
+            this.fade();
             return false;
         }
 
         if(!validator.isEmail(email)) {
-            alert('plese enter valid email');
+            this.setState({
+                ...this.state,
+                response:'plese enter valid email',
+                show:true
+            })
+            this.fade();
             return false;
             
         }
@@ -42,14 +72,24 @@ class SignIn extends Component {
             })
             .then((response) => {
                 if(response.data.message) { 
-                    alert("Login SuccessFul");   
+                    this.setState({
+                        ...this.state,
+                        response:'Login Successful',
+                        show:true
+                    })
+                    this.fade();   
                     this.props.onLoggedIn();
                     this.props.onNavigationClicked();
                     localStorage.setItem('token',response.data.token);
                     localStorage.setItem('userName',response.data.username);
                     this.props.history.push('/');
                 } else {
-                    alert("Login Unsuccessful");
+                    this.setState({
+                        ...this.state,
+                        response:'Login Unsuccessful',
+                        show:true
+                    })
+                    this.fade();
                 }               
             })
             .catch((error) => {
@@ -60,9 +100,15 @@ class SignIn extends Component {
        }
 
     render() {
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
         return (
             <div className="text-center">
                 <NavBar></NavBar>
+                {message}
                 <h3><b>SignIn To CueBlog</b></h3>
                 <form className="well col-md-4 col-md-offset-4 text-left">
                     <div className="form-group">

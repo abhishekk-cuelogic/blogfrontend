@@ -2,6 +2,7 @@ import React,{Component } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
+import Modal from '../modal/modal';
 
 class EditBlog extends Component {
 
@@ -9,7 +10,18 @@ class EditBlog extends Component {
             title : '',
             authorName :'',
             catagory : '',
-            postContent:''
+            postContent:'',
+            response: '',
+            show: false
+    }
+
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
     }
 
     handleEditorChange = (e) => {
@@ -79,7 +91,12 @@ class EditBlog extends Component {
             postContent:content
         })
             .then(res => {
-                alert(res.data);
+                this.setState({
+                    ...this.state,
+                    response: res.data,
+                    show: true
+                })
+                this.fade();
             })
             .catch( err => {
                 alert(err);
@@ -89,9 +106,15 @@ class EditBlog extends Component {
 
     render() {
         let content = this.state.postContent;
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
         return(
             <div>
             <NavBar></NavBar>
+            {message}
              <h2 className="text-center">Edit the Blog</h2>
             <div className="col-sm-8 col-sm-offset-2">
             <div>
