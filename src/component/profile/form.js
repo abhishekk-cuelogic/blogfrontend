@@ -98,13 +98,6 @@ class Form extends Component {
             })
             .then(res => {
                 console.log('updated data====>',res.data);
-                this.setState({
-                    ...this.state,
-                    fullName: res.data.doc.fullName,
-                    contact: res.data.doc.contact,
-                    skills: res.data.doc.skills,
-                    imgURL :'http://localhost:2700/'+res.data.doc.profileImage
-                })
                 alert(res.data.message);
             })
             .catch(err => {
