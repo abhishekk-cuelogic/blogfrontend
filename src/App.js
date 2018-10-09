@@ -19,6 +19,17 @@ import AdminPanel from './component/adminPanel/adminPanel';
 
 class App extends Component {
   render() {
+    let adminpanel,profilepage,writeblog,dashboard= null;
+    if(localStorage.getItem('userName') === 'admin@gmail.com') {
+      adminpanel = AdminPanel
+    }
+
+    if(localStorage.getItem('token')) {
+      profilepage = ProfilePage,
+      writeblog = WriteBlog,
+      dashboard = DashBoard
+    }
+
     return (
           <div className="App">
           <Switch>
@@ -26,17 +37,17 @@ class App extends Component {
               <Route exact path='/signup' component={SignUp}/>
               <Route exact path='/signin' component={SignIn}/>
               <Route exact path='/blog/:id' component={BlogPage}/>
-              <Route exact path='/profile' component={ProfilePage}/>
-              <Route exact path="/writeblog" component={WriteBlog}/>
+              <Route exact path='/profile' component={profilepage}/>
+              <Route exact path="/writeblog" component={writeblog}/>
               <Route exact path="/editblog/:id" component={EditBlog}/>
               <Route exact path='/forgotpassword' component={ForgotPassword}/>
               <Route exact path='/changepassword/:token' component={ChangePassword}/>
-              <Route exact path='/dashboard' component={DashBoard}/>
+              <Route exact path='/dashboard' component={dashboard}/>
               <Route exact path='/search/:catagory' component = {Search}/>
               <Route exact path='/myblog' component = {MyBlog}/>
               <Route exact path='/authorprofile/:userName' component = {AuthorProfile}/>
               <Route exact path='/modal' component = {Modal}/>
-              <Route exact path='/adminpanel' component = {AdminPanel}/>
+              <Route exact path='/adminpanel' component = {adminpanel}/>     
           </Switch>
          </div>
     );

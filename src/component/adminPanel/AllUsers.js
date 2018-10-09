@@ -21,7 +21,7 @@ class AllUsers extends React.Component {
     deleteUser = (userName) =>{
         let url = '/'+userName;
 
-        let token=localStorage.getItem('token')
+        let token=localStorage.getItem('token');
 
         const data = {
             token: token
