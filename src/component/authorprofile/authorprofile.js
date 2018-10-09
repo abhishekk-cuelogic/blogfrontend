@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
+import FeedBack from './feedback';
 
 class AuthorProfile extends Component {
 
@@ -60,6 +61,7 @@ class AuthorProfile extends Component {
                 <p>Followers {follower}</p>
                 <p>Following {following}</p>
             </div>
+            <FeedBack userName={this.state.profile.userName}/>
             </div>
         )
     }
