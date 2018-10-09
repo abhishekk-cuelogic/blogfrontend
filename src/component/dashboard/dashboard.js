@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 import UserActivity from './useractivity';
-
+import UserMessage from './usermessages';
 
 class DashBoard extends Component {
 
@@ -125,6 +125,11 @@ class DashBoard extends Component {
                 <div>
                     <UserActivity/>
                 </div>
+
+                 <div>
+                    <UserMessage/>
+                </div>
+               
                 
             </div>
         )

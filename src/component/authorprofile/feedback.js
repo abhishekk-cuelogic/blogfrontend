@@ -20,7 +20,7 @@ class FeedBack extends Component {
 
 
     sendFeedback = () => {
-        if(localStorage.getItem('userName') === null) {
+        if (localStorage.getItem('userName') === null) {
             this.setState({
                 ...this.state,
                 response: 'you need to Signin to give feedback',
@@ -28,25 +28,56 @@ class FeedBack extends Component {
             })
             this.fade();
         } else {
-            let url='/profile/feedback/'+this.props.userName;
+            let url = '/profile/feedback/' + this.props.userName;
             let userName = localStorage.getItem('userName');
             let feed = document.getElementById('feed').value;
 
-            axios.post(url,{
-                userName:userName,
-                feed:feed
+            axios.post(url, {
+                userName: userName,
+                feed: feed
             })
-            .then(res=>{
-                this.setState({
-                    ...this.state,
-                    response: res.data,
-                    show: true
+                .then(res => {
+                    this.setState({
+                        ...this.state,
+                        response: res.data,
+                        show: true
+                    })
+                    this.fade();
                 })
-                this.fade();
+                .catch(err => {
+                    alert(err);
+                })
+        }
+    }
+
+    sendMessage = () => {
+        if (localStorage.getItem('userName') === null) {
+            this.setState({
+                ...this.state,
+                response: 'you need to Signin to send Message',
+                show: true
             })
-            .catch(err=> {
-                alert(err);
+            this.fade();
+        } else {
+            let url = '/profile/message/' + this.props.userName;
+            let userName = localStorage.getItem('userName');
+            let msg = document.getElementById('msg').value;
+
+            axios.post(url, {
+                userName: userName,
+                msg: msg
             })
+                .then(res => {
+                    this.setState({
+                        ...this.state,
+                        response: res.data,
+                        show: true
+                    })
+                    this.fade();
+                })
+                .catch(err => {
+                    alert(err);
+                })
         }
     }
 
@@ -59,14 +90,21 @@ class FeedBack extends Component {
         }
         return (
             <div class="container-fluid text-center">
-            {message}
-            <p><b>Give FeedBack</b></p>  
-            <form class="form col-sm-4 col-sm-offset-4">
-                <textarea class="form-control" rows="5" id="feed"></textarea>
-                <div>
-                    <button type="button" class="btn btn-danger" onClick={this.sendFeedback}>Send</button>
-                 </div>
-            </form>
+                {message}
+                <p><b>Give FeedBack</b></p>
+                <form class="form col-sm-4 col-sm-offset-4">
+                    <textarea class="form-control" rows="5" id="feed"></textarea>
+                    <div>
+                        <button type="button" class="btn btn-danger" onClick={this.sendFeedback}>Send</button>
+                    </div>
+                    <br/>
+                </form>
+                <div class="container-fluid text-center">
+                    <form class="form-inline">
+                             <input type="text" class="form-control" size="50" placeholder="send message" id='msg'/>
+                            <button type="button" class="btn btn-danger" onClick={this.sendMessage}>Send Message</button>
+                    </form>
+                </div>
           </div>
                 )
             }
