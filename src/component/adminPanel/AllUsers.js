@@ -1,17 +1,42 @@
 import React from 'react';
 import axios from '../../axiosInstance';
+import Modal from '../modal/modal';
 
 class AllUsers extends React.Component {
+
+    state = {
+        response: '',
+        show: false
+    }
+
+    fade = () => {
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                show: false
+            })
+        }, 2000)
+    }
 
     deleteUser = (userName) =>{
         let url = '/'+userName;
 
         axios.delete(url)
         .then(res => {
-            alert(res.data);
+            this.setState({
+                ...this.state,
+                response: res.data,
+                show: true
+            })
+            this.fade();
         })
         .catch(err => {
-            alert(err);
+            this.setState({
+                ...this.state,
+                response: err,
+                show: true
+            })
+            this.fade();
         })
 
     } 
@@ -19,9 +44,16 @@ class AllUsers extends React.Component {
 
     render() {
 
+        let message = null;
+
+        if (this.state.show) {
+            message = <Modal res={this.state.response}></Modal>
+        }
+
         let img='http://localhost:2700/'+this.props.profile.profileImage;
         return (
             <div className="container">
+                {message}
                 <div className="col-sm-8 col-sm-offset-2">
                     <div className="col-sm-3">
                         <div>
