@@ -40,12 +40,17 @@ class MyBlog extends Component {
         let url = '/post/'+id;
         let activity = 'You Deleted blog ' + title + ' on ' + new Date();
         let userName = localStorage.getItem('userName');
+        let token = localStorage.getItem('token')
         console.log('index',index);
         console.log('state',this.state.posts);
 
         let allposts = [...this.state.posts];
 
-        axios.delete(url)
+        const data = {
+            token: token
+          }
+
+        axios.delete(url,{data})
         .then(res => {
             this.setState({
                 ...this.state,

@@ -21,7 +21,13 @@ class AllUsers extends React.Component {
     deleteUser = (userName) =>{
         let url = '/'+userName;
 
-        axios.delete(url)
+        let token=localStorage.getItem('token')
+
+        const data = {
+            token: token
+        }
+
+        axios.delete(url,{data})
         .then(res => {
             this.setState({
                 ...this.state,

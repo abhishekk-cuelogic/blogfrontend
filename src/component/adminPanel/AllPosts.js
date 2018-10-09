@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import axios from '../../axiosInstance';
 import Modal from '../modal/modal';
+import { loadavg } from 'os';
 
 
 class AllPosts extends React.Component {
@@ -23,8 +24,13 @@ class AllPosts extends React.Component {
 
     deletePost = (id) => {
         let url = '/post/'+id;
+        let token=localStorage.getItem('token')
 
-        axios.delete(url)
+        const data = {
+            token: token
+          }
+
+        axios.delete(url,{data})
         .then(res => {
             this.setState({
                 ...this.state,

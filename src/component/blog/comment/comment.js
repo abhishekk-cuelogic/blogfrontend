@@ -37,10 +37,12 @@ class Comment extends Component {
             userName = localStorage.getItem('userName');
             commentData = document.getElementById('comment').value;
             url = '/post/comment/'+this.props.Post._id;
+            let token = localStorage.getItem('token');
 
             axios.put(url,{
                 userName: userName,
-                commentData : commentData
+                commentData : commentData,
+                token:token
             })
             .then(response => {
                 console.log("comment Response======>",response.data);

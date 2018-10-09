@@ -89,6 +89,7 @@ class Form extends Component {
         var formData = new FormData();
 
         let userName = localStorage.getItem('userName');
+        let token = localStorage.getItem('token');
         let fname = this.state.fullName;
         let contact = this.state.contact;
         let skills = this.state.skills;

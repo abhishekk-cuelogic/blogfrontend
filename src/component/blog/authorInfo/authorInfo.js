@@ -65,9 +65,11 @@ class AuthorInfo extends Component {
             if (!this.state.like) {
                 let url = '/post/like/' + this.props.Post._id;
                 let userName = localStorage.getItem('userName');
+                let token = localStorage.getItem('token');
 
                 axios.put(url, {
-                    userName: userName
+                    userName: userName,
+                    token:token
                 })
                     .then(response => {
                         console.log(response);

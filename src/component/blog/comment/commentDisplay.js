@@ -22,9 +22,11 @@ class CommentDisplay extends Component {
 
     deleteComment = (id,postId) => {
         let url = '/post/comment/'+postId+'/'+id;
+        let token=localStorage.getItem('token');
 
         axios.put(url,{
-            commentId:id
+            commentId:id,
+            token:token
         })
         .then(res=>{
             this.setState({

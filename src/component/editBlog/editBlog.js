@@ -1,4 +1,4 @@
-import React,{Component } from 'react';
+import React, { Component } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
@@ -7,12 +7,12 @@ import Modal from '../modal/modal';
 class EditBlog extends Component {
 
     state = {
-            title : '',
-            authorName :'',
-            catagory : '',
-            postContent:'',
-            response: '',
-            show: false
+        title: '',
+        authorName: '',
+        catagory: '',
+        postContent: '',
+        response: '',
+        show: false
     }
 
     fade = () => {
@@ -25,28 +25,28 @@ class EditBlog extends Component {
     }
 
     handleEditorChange = (e) => {
-        this.setState({postContent: e.target.getContent()})
-      }
+        this.setState({ postContent: e.target.getContent() })
+    }
 
 
     componentWillMount = () => {
-        let id=window.location.href.split('/')[4];
-        let url='/post/getone/'+id;
+        let id = window.location.href.split('/')[4];
+        let url = '/post/getone/' + id;
 
         axios.get(url)
-        .then(res=>{
-            console.log('post==>dtat',res.data);
-            this.setState({
-                ...this.state,
-                title:res.data.title,
-                authorName:res.data.authorName,
-                catagory:res.data.catagory,
-                postContent:res.data.postContent
+            .then(res => {
+                console.log('post==>dtat', res.data);
+                this.setState({
+                    ...this.state,
+                    title: res.data.title,
+                    authorName: res.data.authorName,
+                    catagory: res.data.catagory,
+                    postContent: res.data.postContent
+                })
             })
-        })
-        .catch(err => {
-            alert(err);
-        })
+            .catch(err => {
+                alert(err);
+            })
     }
 
     getData = (e, id) => {
@@ -75,21 +75,23 @@ class EditBlog extends Component {
     }
 
     updateBlog = () => {
-        let id=window.location.href.split('/')[4];
-        let url = '/post/'+id
+        let id = window.location.href.split('/')[4];
+        let url = '/post/' + id
+        let token = localStorage.getItem('token');
 
 
-        let title=this.state.title;
-        let authorName=this.state.authorName;
-        let catagory=this.state.catagory;
-        let content=this.state.postContent;
+        let title = this.state.title;
+        let authorName = this.state.authorName;
+        let catagory = this.state.catagory;
+        let content = this.state.postContent;
 
         axios.put(url, {
-            title:title,
-            authorName:authorName,
-            catagory:catagory,
-            postContent:content
-        })
+                title: title,
+                authorName: authorName,
+                catagory: catagory,
+                postContent: content,
+                token:token
+            })
             .then(res => {
                 this.setState({
                     ...this.state,
@@ -98,7 +100,7 @@ class EditBlog extends Component {
                 })
                 this.fade();
             })
-            .catch( err => {
+            .catch(err => {
                 alert(err);
             })
     }
@@ -111,46 +113,46 @@ class EditBlog extends Component {
         if (this.state.show) {
             message = <Modal res={this.state.response}></Modal>
         }
-        return(
+        return (
             <div>
-            <NavBar></NavBar>
-            {message}
-             <h2 className="text-center">Edit the Blog</h2>
-            <div className="col-sm-8 col-sm-offset-2">
-            <div>
-                    <form className="form-horizontal" autoComplete="off">
+                <NavBar></NavBar>
+                {message}
+                <h2 className="text-center">Edit the Blog</h2>
+                <div className="col-sm-8 col-sm-offset-2">
+                    <div>
+                        <form className="form-horizontal" autoComplete="off">
                             <div className="form-group">
                                 <label>Title</label>
-                                <input type="text" className="form-control" id="title" name='title' value={this.state.title} onChange={(e)=>this.getData(e,'title')}/>
+                                <input type="text" className="form-control" id="title" name='title' value={this.state.title} onChange={(e) => this.getData(e, 'title')} />
                             </div>
                             <div className="form-group">
                                 <label>Author Name</label>
-                                <input type="text" className="form-control" id="aname" name='authorname' value={this.state.authorName} onChange={(e)=>this.getData(e,'authorName')}/>
+                                <input type="text" className="form-control" id="aname" name='authorname' value={this.state.authorName} onChange={(e) => this.getData(e, 'authorName')} />
                             </div>
                             <div className="form-group">
                                 <label>Catagory</label>
-                                <input type="text" className="form-control" id="catagory" name='catagory' value={this.state.catagory} onChange={(e)=>this.getData(e,'catagory')}/>
+                                <input type="text" className="form-control" id="catagory" name='catagory' value={this.state.catagory} onChange={(e) => this.getData(e, 'catagory')} />
                             </div>
                             <div className="form-group">
-                            <label>Content</label>
+                                <label>Content</label>
                                 <Editor
                                     initialValue={content}
                                     init={{
-                                    plugins: 'link image code',
-                                    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
-                                    editor_css : "/content_css.css"
+                                        plugins: 'link image code',
+                                        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+                                        editor_css: "/content_css.css"
                                     }}
                                     onChange={this.handleEditorChange}
                                 />
                             </div>
                             <div className="form-group">
                                 <label>Upload Image</label>
-                                <input type="file" id="img" name='myImage'/>     
+                                <input type="file" id="img" name='myImage' />
                             </div>
                             <button type="button" className="btn btn-success" onClick={this.updateBlog}>Update Blog</button>
                         </form>
-            </div>
-            </div>
+                    </div>
+                </div>
             </div>
 
         )

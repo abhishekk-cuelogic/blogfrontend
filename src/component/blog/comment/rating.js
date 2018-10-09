@@ -59,13 +59,15 @@ class Rating extends Component {
             let url = '/post/rating/'+this.props.Post._id;
             let userName = localStorage.getItem('userName');
             let activity = 'You Rated on ' + this.props.Post.title + ' on ' + new Date();
+            let token = localStorage.getItem('token');
 
             if(!this.state.rate) {
                 this.setState({rating: nextValue});
 
                 axios.put(url,{
                     userName : userName,
-                    ratingData : nextValue
+                    ratingData : nextValue,
+                    token:token
                 })
                 .then(res =>{
                     this.setState({
