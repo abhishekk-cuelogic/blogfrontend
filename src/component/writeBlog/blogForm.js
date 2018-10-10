@@ -95,6 +95,7 @@ class BlogForm extends Component {
         let catagory=document.getElementById('catagory').value;
         let content=this.state.content;
         var imagefile = document.getElementById('img');
+        var videofile = document.getElementById('video');
 
         if(this.validate(title,authorName,catagory)) {
             formData.append('userName',userName);
@@ -103,6 +104,7 @@ class BlogForm extends Component {
             formData.append('catagory',catagory);
             formData.append('content',content);
             formData.append("myImage", imagefile.files[0]);
+            formData.append("myImage",videofile.files[0]);
 
         axios.post('/post', formData, {
             headers: {
@@ -172,6 +174,10 @@ class BlogForm extends Component {
                             <div className="form-group">
                                 <label>Upload Image</label>
                                 <input type="file" id="img" name='myImage'/>     
+                            </div>
+                            <div className="form-group">
+                                <label>Upload Video</label>
+                                <input type="file" id="video" name='myImage'/>     
                             </div>
                             <button type="button" className="btn btn-success" onClick={this.postBlog}>Post Blog</button>
                         </form>

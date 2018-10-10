@@ -32,21 +32,31 @@ class FeedBack extends Component {
             let userName = localStorage.getItem('userName');
             let feed = document.getElementById('feed').value;
 
-            axios.post(url, {
-                userName: userName,
-                feed: feed
-            })
-                .then(res => {
-                    this.setState({
-                        ...this.state,
-                        response: res.data,
-                        show: true
+            if(feed !== '') {
+                axios.post(url, {
+                    userName: userName,
+                    feed: feed
+                })
+                    .then(res => {
+                        this.setState({
+                            ...this.state,
+                            response: res.data,
+                            show: true
+                        })
+                        this.fade();
                     })
-                    this.fade();
+                    .catch(err => {
+                        alert(err);
+                    })
+            } else {
+                this.setState({
+                    ...this.state,
+                    response: 'Plese enter FeedBack',
+                    show: true
                 })
-                .catch(err => {
-                    alert(err);
-                })
+                this.fade();
+            }
+           
         }
     }
 
@@ -63,21 +73,32 @@ class FeedBack extends Component {
             let userName = localStorage.getItem('userName');
             let msg = document.getElementById('msg').value;
 
-            axios.post(url, {
-                userName: userName,
-                msg: msg
-            })
-                .then(res => {
-                    this.setState({
-                        ...this.state,
-                        response: res.data,
-                        show: true
+
+            if(msg !== '') {
+                axios.post(url, {
+                    userName: userName,
+                    msg: msg
+                })
+                    .then(res => {
+                        this.setState({
+                            ...this.state,
+                            response: res.data,
+                            show: true
+                        })
+                        this.fade();
                     })
-                    this.fade();
+                    .catch(err => {
+                        alert(err);
+                    })
+            } else {
+                this.setState({
+                    ...this.state,
+                    response: 'Plese enter message',
+                    show: true
                 })
-                .catch(err => {
-                    alert(err);
-                })
+                this.fade();
+            }
+            
         }
     }
 
