@@ -89,14 +89,12 @@ class Form extends Component {
         var formData = new FormData();
 
         let userName = localStorage.getItem('userName');
-        let token = localStorage.getItem('token');
         let fname = this.state.fullName;
         let contact = this.state.contact;
         let skills = this.state.skills;
         let image = document.getElementById('img');
         let imagefile = image.files[0];
 
-        console.log('=====>', imagefile);
         formData.append('userName', userName);
         formData.append('fullName', fname);
         formData.append('contact', contact);
@@ -112,6 +110,10 @@ class Form extends Component {
                 console.log('updated data====>',res.data);
                 this.setState({
                     ...this.state,
+                    fullName: res.data.post.fullName,
+                    contact: res.data.post.contact,
+                    skills: res.data.post.skills,
+                    imgURL :'http://localhost:2700/'+res.data.post.profileImage,
                     response: res.data.message,
                     show: true
                 })
@@ -166,8 +168,6 @@ class Form extends Component {
             </div>
 
         )
-
-
 
     }
 }
