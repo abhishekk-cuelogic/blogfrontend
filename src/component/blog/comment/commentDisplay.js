@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import Img from '/home/abhishek/Desktop/blogfrontend/src/img.jpg';
 import axios from '../../../axiosInstance';
 import Modal from '../../modal/modal';
+import { connect } from 'react-redux';
 
 
 class CommentDisplay extends Component {
@@ -29,9 +30,11 @@ class CommentDisplay extends Component {
             token:token
         })
         .then(res=>{
+            console.log(res);
+            this.props.deleteComment(res.data.resdata);
             this.setState({
                 ...this.state,
-                response: res.data,
+                response: res.data.message,
                 show: true
             })
             this.fade();
@@ -71,4 +74,11 @@ class CommentDisplay extends Component {
     }
 }
 
-export default CommentDisplay;
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteComment : (post) => dispatch({type:'DELETE_COMMENT',payload:post})
+    }
+}
+
+
+export default connect(null,mapDispatchToProps)(CommentDisplay);

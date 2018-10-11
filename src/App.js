@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Switch,Route} from 'react-router-dom';
+import {Switch,Route,Redirect} from 'react-router-dom';
 import MainPage from './container/mainPage/mainPage';
 import SignUp from './component/signup/signup';
 import SignIn from './component/signin/signin';

@@ -29,6 +29,12 @@ const reducer = (state = initialState , action) => {
                 ...state,
                 Post : action.payload
             }
+        
+            case "DELETE_COMMENT" : 
+            return {
+                ...state,
+                Post : action.payload
+            }
     }
 
 
