@@ -12,7 +12,7 @@ class PopularPost extends Component {
         return (
         <div className="row">
             <div className="col-sm-7">
-                <h4 className="text center">Popular Post</h4>
+                <h4 className="text center"><b>Popular Post</b></h4>
                 <div id="myCarousel" className="carousel slide well" data-ride="carousel">
                     <Indicator></Indicator>
                     <PopularBlog></PopularBlog>
@@ -20,7 +20,7 @@ class PopularPost extends Component {
                 </div>
             </div>
             <div className="col-sm-5">
-                <h4 className="text center">You May Like</h4>
+                <h4 className="text center"><b>You May Like</b></h4>
                 <SubscribePost></SubscribePost>
             </div>
         </div>
