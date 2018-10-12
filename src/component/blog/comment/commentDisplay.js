@@ -53,6 +53,7 @@ class CommentDisplay extends Component {
             comp = <button type="button" className="btn btn-primary" onClick={()=>this.deleteComment(this.props.id,this.props.postId)}>Delete</button>    
         }
         console.log("commentDisplay======>",this.props.comment);
+
         return(
             <div className="col-sm-12">
                 {message}
