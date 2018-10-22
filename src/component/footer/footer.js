@@ -50,7 +50,8 @@ class Footer extends Component {
                         <option>2017</option>
                         <option>2018</option>
                     </select>
-                </div> 
+                </div>
+                <div id="google_translate_element" className="pull-right"></div> 
             </footer>
             {archive}
             </div>

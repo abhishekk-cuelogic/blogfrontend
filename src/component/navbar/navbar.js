@@ -16,6 +16,7 @@ class Navbar extends Component {
         })
     }
 
+
     render() {
         let navComponent,searchComponent;
 

@@ -3,7 +3,6 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 import { connect } from 'react-redux';
 
 class BlogInfo extends Component {
-
     render() {
         let image = 'http://localhost:2700/'+this.props.Post.image;
         let content=this.props.Post.postContent;
