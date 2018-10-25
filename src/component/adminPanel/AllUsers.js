@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from '../../axiosInstance';
 import Modal from '../modal/modal';
+import UserService from '../../services/userService';
 
 class AllUsers extends React.Component {
 
@@ -27,7 +27,8 @@ class AllUsers extends React.Component {
             token: token
         }
 
-        axios.delete(url,{data})
+   
+        UserService.deleteUser(url,{data})
         .then(res => {
             this.setState({
                 ...this.state,

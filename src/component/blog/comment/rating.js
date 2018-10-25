@@ -1,9 +1,9 @@
 import React,{ Component } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import { connect } from 'react-redux';
-import axios from '../../../axiosInstance';
 import Modal from '../../modal/modal';
 import PostControl from '../../../services/postControlService';
+import UserActivity from '../../../services/userActivityService';
 
 class Rating extends Component {
 
@@ -73,12 +73,9 @@ class Rating extends Component {
                     alert(err);
                 })
 
-                axios.put('/useractivity',{
-                    userName : userName,
-                    activity: activity
-                })
-                .then(res => {})
-                .catch(err => {alert(err);})
+                UserActivity.addUserActivity(userName, activity)
+                .then(res => { })
+                .catch(err => { alert(err); })
 
             } else {
                 this.setState({

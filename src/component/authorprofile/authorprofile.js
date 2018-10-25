@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import NavBar from '../navbar/navbar';
-import axios from '../../axiosInstance';
 import FeedBack from './feedback';
+import ProfileService from '../../services/profileService';
 
 class AuthorProfile extends Component {
 
@@ -12,9 +12,8 @@ class AuthorProfile extends Component {
     componentWillMount = () => {
         let url ='/profile/'+this.props.match.params.userName;
 
-        axios.get(url)
-        .then(res =>{
-            console.log('data===>',res.data);
+        ProfileService.getProfile(url)
+        .then(res => {
             this.setState({
                 ...this.state,
                 profile: res.data

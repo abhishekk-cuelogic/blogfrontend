@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
-import axios from '../../axiosInstance';
 import userService from '../../services/userService';
 
 class ForgotComponent extends Component {

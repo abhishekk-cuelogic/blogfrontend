@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from '../../axiosInstance';
+import userActivity from '../../services/userActivityService';
 
 class UserActivity extends Component {
 
@@ -11,19 +11,19 @@ class UserActivity extends Component {
         let userName = localStorage.getItem('userName');
         let url = '/useractivity/' + userName;
 
-        axios.get(url)
-            .then(res => {
-                console.log('useractivity====>', res.data);
+        userActivity.getUserActivity(url)
+        .then(res => {
+            console.log('useractivity====>', res.data);
                 if(res.data){
                     this.setState({
                         ...this.state,
                         userActivity: res.data.useractivity
                     })
                 }      
-            })
-            .catch(err => {
-                alert(err);
-            })
+        })
+        .catch(err => {
+            alert(err);
+        })
     }
 
     render() {

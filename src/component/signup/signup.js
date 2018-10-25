@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavBar from '../navbar/navbar';
-import axios from '../../axiosInstance';
 import validator from 'validator';
 import Modal from '../modal/modal';
 import userService from '../../services/userService';

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
-import axios from '../../axiosInstance';
 import { connect } from 'react-redux';
 import validator from 'validator';
 import {Link} from 'react-router-dom';

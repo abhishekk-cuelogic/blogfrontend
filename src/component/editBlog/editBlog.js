@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import NavBar from '../navbar/navbar';
-import axios from '../../axiosInstance';
 import Modal from '../modal/modal';
+import PostControl from '../../services/postControlService';
 
 class EditBlog extends Component {
 
@@ -33,7 +33,7 @@ class EditBlog extends Component {
         let id = window.location.href.split('/')[4];
         let url = '/post/getone/' + id;
 
-        axios.get(url)
+        PostControl.getBlog(url)
             .then(res => {
                 console.log('post==>dtat', res.data);
                 this.setState({
@@ -79,19 +79,12 @@ class EditBlog extends Component {
         let url = '/post/' + id
         let token = localStorage.getItem('token');
 
-
         let title = this.state.title;
         let authorName = this.state.authorName;
         let catagory = this.state.catagory;
         let content = this.state.postContent;
 
-        axios.put(url, {
-                title: title,
-                authorName: authorName,
-                catagory: catagory,
-                postContent: content,
-                token:token
-            })
+        PostControl.updateBlog(url, title, authorName, catagory, content, token)
             .then(res => {
                 this.setState({
                     ...this.state,

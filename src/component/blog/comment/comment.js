@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
-import axios from '../../../axiosInstance';
 import { connect } from 'react-redux';
 import Rating from './rating';
 import Modal from '../../modal/modal';
 import PostControl from '../../../services/postControlService';
+import UserActivity from '../../../services/userActivityService';
 
 
 class Comment extends Component {
@@ -49,12 +49,9 @@ class Comment extends Component {
             })
 
 
-            axios.put('/useractivity',{
-                userName : userName,
-                activity: activity
-            })
-            .then(res => {})
-            .catch(err => {alert(err);})
+            UserActivity.addUserActivity(userName, activity)
+            .then(res => { })
+            .catch(err => { alert(err); })
 
         }
     }

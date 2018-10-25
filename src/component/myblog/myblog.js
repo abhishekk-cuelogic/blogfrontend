@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/navbar';
-import axios from '../../axiosInstance';
 import {Link} from 'react-router-dom';
 import Modal from '../modal/modal';
 import postService from '../../services/postService';
+import UserActivity from '../../services/userActivityService';
+import PostControl from '../../services/postControlService';
 
 class MyBlog extends Component {
 
@@ -52,7 +53,7 @@ class MyBlog extends Component {
             token: token
           }
 
-        axios.delete(url,{data})
+        PostControl.deleteblog(url,{data})
         .then(res => {
             this.setState({
                 ...this.state,
@@ -64,18 +65,14 @@ class MyBlog extends Component {
             this.setState({
                 posts : allposts
             })
-
         })
         .catch(err => {
             alert(err);
         })
 
-        axios.put('/useractivity',{
-            userName : userName,
-            activity: activity
-        })
-        .then(res => {})
-        .catch(err => {alert(err);})
+        UserActivity.addUserActivity(userName, activity)
+        .then(res => { })
+        .catch(err => { alert(err); })
     }
 
     render() {

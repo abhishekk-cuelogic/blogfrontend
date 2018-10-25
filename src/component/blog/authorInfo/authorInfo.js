@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Ronaldo from '/home/abhishek/Desktop/blogfrontend/src/ronaldo.jpeg';
 import { connect } from 'react-redux';
-import axios from '../../../axiosInstance';
 import { Link } from 'react-router-dom';
 import Modal from '../../modal/modal';
 import PostControl from '../../../services/postControlService';
+import ProfileService from '../../../services/profileService';
+import UserActivity from '../../../services/userActivityService';
 
 class AuthorInfo extends Component {
 
@@ -21,10 +22,8 @@ class AuthorInfo extends Component {
         let userName = localStorage.getItem('userName');
         let url = 'profile/following/' + userName;
 
-        axios.get(url)
+        ProfileService.getFollowing(url)
             .then(res => {
-                console.log('following====>', res.data);
-
                 if (res.data !== null) {
                     res.data.forEach(obj => {
                         if (obj.userName === this.props.Post.userName) {
@@ -35,12 +34,12 @@ class AuthorInfo extends Component {
                         }
                     });
                 }
-
             })
             .catch(err => {
                 alert(err);
             })
     }
+
     fade = () => {
         setTimeout(() => {
             this.setState({
@@ -81,12 +80,7 @@ class AuthorInfo extends Component {
                         console.log(error);
                     })
 
-
-
-                axios.put('/useractivity', {
-                    userName: userName,
-                    activity: activity
-                })
+                UserActivity.addUserActivity(userName, activity)
                     .then(res => { })
                     .catch(err => { alert(err); })
             }
@@ -111,9 +105,7 @@ class AuthorInfo extends Component {
                 let url = 'profile/follower/' + this.props.Post.userName;
                 let userName = localStorage.getItem('userName');
 
-                axios.put(url, {
-                    userName: userName
-                })
+                ProfileService.addFollower(url, userName)
                     .then(res => {
                         this.setState({
                             ...this.state,
@@ -124,13 +116,13 @@ class AuthorInfo extends Component {
                         alert(err);
                     })
 
-                axios.put('/useractivity', {
-                    userName: userName,
-                    activity: activity
-                })
+                UserActivity.addUserActivity(userName, activity)
                     .then(res => { })
                     .catch(err => { alert(err); })
+
             }
+
+
 
         }
     }

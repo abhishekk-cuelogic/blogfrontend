@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import NavBar from '../navbar/navbar';
-import axios from '../../axiosInstance';
 import UserActivity from './useractivity';
 import UserMessage from './usermessages';
+import ProfileService from '../../services/profileService';
+import PostService from '../../services/postService';
 
 class DashBoard extends Component {
 
@@ -20,7 +21,7 @@ class DashBoard extends Component {
         let followingUrl = '/profile/following/'+userName;
         let postUrl = '/post/getallpost/'+userName;
 
-        axios.get(followerUrl)
+        ProfileService.getFollowers(followerUrl)
         .then(res => {
             this.setState({
                 ...this.state,
@@ -31,7 +32,7 @@ class DashBoard extends Component {
             alert(err);
         })
 
-        axios.get(followingUrl)
+        ProfileService.getFollowing(followingUrl)
         .then(res => {
             this.setState({
                 ...this.state,
@@ -42,7 +43,7 @@ class DashBoard extends Component {
             alert(err);
         })
 
-        axios.get(postUrl)
+        PostService.getUserAllPost(postUrl)
         .then(res => {
             console.log('post data===>',res.data);
             let likes = 0;
@@ -60,6 +61,7 @@ class DashBoard extends Component {
         .catch(err => {
             alert(err);
         })
+
     }
 
 

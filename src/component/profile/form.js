@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from '../../axiosInstance';
 import img from '/home/abhishek/Desktop/blogfrontend/src/images.png';
 import Modal from '../modal/modal';
+import ProfileService from '../../services/profileService';
 
 class Form extends Component {
 
@@ -9,7 +9,7 @@ class Form extends Component {
         fullName: '',
         contact: '',
         skills: '',
-        imgURL : '',
+        imgURL: '',
         response: '',
         show: false
     }
@@ -19,17 +19,15 @@ class Form extends Component {
         let userName = localStorage.getItem('userName');
         let url = '/profile/' + userName;
 
-        axios.get(url)
+        ProfileService.getProfile(url)
             .then(res => {
-                console.log('componentDidmount======>', res.data);
-
                 if (!res.data) {
                     this.setState({
                         ...this.state,
                         fullName: '',
                         contact: '',
                         skills: '',
-                        imgURL:img
+                        imgURL: img
                     })
                 } else {
                     this.setState({
@@ -37,11 +35,9 @@ class Form extends Component {
                         fullName: res.data.fullName,
                         contact: res.data.contact,
                         skills: res.data.skills,
-                        imgURL :'http://localhost:2700/'+res.data.profileImage
+                        imgURL: 'http://localhost:2700/' + res.data.profileImage
                     })
                 }
-
-
             })
             .catch(err => {
                 alert(err);
@@ -101,19 +97,14 @@ class Form extends Component {
         formData.append('skills', skills);
         formData.append("myImage", imagefile);
 
-        axios.post('/profile', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-            })
+        ProfileService.updateProfile(formData)
             .then(res => {
-                console.log('updated data====>',res.data);
                 this.setState({
                     ...this.state,
                     fullName: res.data.post.fullName,
                     contact: res.data.post.contact,
                     skills: res.data.post.skills,
-                    imgURL :'http://localhost:2700/'+res.data.post.profileImage,
+                    imgURL: 'http://localhost:2700/' + res.data.post.profileImage,
                     response: res.data.message,
                     show: true
                 })
@@ -126,15 +117,15 @@ class Form extends Component {
     }
 
     render() {
-        console.log('render====>',this.state.imgURL);
+        console.log('render====>', this.state.imgURL);
         let message = null;
 
         if (this.state.show) {
             message = <Modal res={this.state.response}></Modal>
         }
-        return (         
+        return (
             <div>
-                 {message}
+                {message}
                 <div className="col-sm-4 col-sm-offset-4">
                     <img src={this.state.imgURL} className="img-responsive img-rounded" alt="Avatar" /><br /><br />
                 </div>

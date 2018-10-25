@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Archive from './archivesearch'; 
-import axios from '../../axiosInstance';
 import postService from '../../services/postService';
 
 class Footer extends Component {

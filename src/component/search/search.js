@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from '../navbar/navbar';
-import axios from '../../axiosInstance';
 import postService from '../../services/postService';
+import PostControl from '../../services/postControlService';
 
 class Search extends Component {
 
@@ -45,7 +45,7 @@ class Search extends Component {
         let url = '/post/view/' + id;
         let posturl = '/blog/' + id;
 
-        axios.put(url)
+        PostControl.increseView(url)
             .then(res => {
                 this.props.history.push(posturl);
             })

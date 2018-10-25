@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import axios from '../../axiosInstance';
 import Modal from '../modal/modal';
 import { loadavg } from 'os';
+import PostControl from '../../services/postControlService';
 
 
 class AllPosts extends React.Component {
@@ -30,7 +30,7 @@ class AllPosts extends React.Component {
             token: token
           }
 
-        axios.delete(url,{data})
+        PostControl.deleteblog(url,{data})
         .then(res => {
             this.setState({
                 ...this.state,
@@ -47,7 +47,7 @@ class AllPosts extends React.Component {
             })
             this.fade();
         })
-
+        
     }
 
 
@@ -64,7 +64,7 @@ class AllPosts extends React.Component {
         let blogUrl = '/blog/'+this.props.post._id;
         return (
             <div className="container">
-                {message}
+                {message} 
                 <div className="col-sm-8 col-sm-offset-2">
                     <div className="col-sm-3">
                         <div>

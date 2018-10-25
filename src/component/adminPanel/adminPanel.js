@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import NavBar from '../navbar/navbar';
 import AllUsers from './AllUsers';
 import AllPosts from './AllPosts';
-import axios from '../../axiosInstance';
 import postService from '../../services/postService';
+import ProfileService from '../../services/profileService';
 
 
 class AdminPanel extends Component {
@@ -16,18 +16,17 @@ class AdminPanel extends Component {
     }
 
     componentDidMount = () => {
-
-        axios.get('/profile')
-            .then(res => {
-                console.log(res);
-                this.setState({
-                    ...this.state,
-                    profiles: res.data
-                })
+  
+        ProfileService.getAllProfile()
+        .then(res => {
+            this.setState({
+                ...this.state,
+                profiles: res.data
             })
-            .catch(err => {
-                console.log(err);
-            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
 
         postService.getAllPost()
             .then(res => {

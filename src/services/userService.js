@@ -1,9 +1,9 @@
 import axios from '../axiosInstance';
 
 class userService {
-    userSignUp  = (email,password) => {
+    userSignUp = (email, password) => {
 
-        return new Promise((resolve,reject) => {
+        return new Promise((resolve, reject) => {
             axios.post('/', {
                 username: email,
                 password: password
@@ -23,49 +23,62 @@ class userService {
                 .catch((error) => {
                     reject(error);
                 });
-        })   
+        })
     }
 
-    userSignIn = (email,password) => {
+    userSignIn = (email, password) => {
 
-        return new Promise((resolve,reject) => {
-            axios.post('/signin',{
-                username:email,
-                password:password
+        return new Promise((resolve, reject) => {
+            axios.post('/signin', {
+                username: email,
+                password: password
             })
-            .then((response) => {
-                resolve(response)
-            })
-            .catch((error) => {
-                reject(error);
-            }) 
+                .then((response) => {
+                    resolve(response)
+                })
+                .catch((error) => {
+                    reject(error);
+                })
         })
     }
 
     sendMail = (userName) => {
 
-        return new Promise ((resolve,reject) => {
-            axios.post('/signin/forgotpassword',{
-                email:userName
+        return new Promise((resolve, reject) => {
+            axios.post('/signin/forgotpassword', {
+                email: userName
             })
-            .then(response => {
-                resolve(response);
-            })
+                .then(response => {
+                    resolve(response);
+                })
         })
     }
 
-    resetPassword = (userName,passWord) => {
-        return new Promise ((resolve,reject) => {
-            axios.post('/signin/resetpassword',{
-                userName : userName,
-                passWord:passWord
+    resetPassword = (userName, passWord) => {
+        return new Promise((resolve, reject) => {
+            axios.post('/signin/resetpassword', {
+                userName: userName,
+                passWord: passWord
             })
-            .then(response => {
-                resolve(response);
-            })
-            .catch(error => {
-                reject(error);
-            })
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        })
+    }
+
+    deleteUser = (url, { data }) => {
+
+        return new Promise((resolve, reject) => {
+            axios.delete(url, { data })
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    reject(error)
+                })
         })
     }
 }

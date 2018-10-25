@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-import axios from '../../axiosInstance';
 import validator from 'validator';
 import Modal from '../modal/modal';
+import PostControl from '../../services/postControlService';
+import UserActivity from '../../services/userActivityService';
 
 
 class BlogForm extends Component {
@@ -105,31 +106,25 @@ class BlogForm extends Component {
             formData.append('content',content);
             formData.append("myImage", imagefile.files[0]);
             formData.append("myImage",videofile.files[0]);
-
-        axios.post('/post', formData, {
-            headers: {
-            'Content-Type': 'multipart/form-data'
-            }})
-            .then(res => {
-                this.setState({
-                    ...this.state,
-                    response: res.data,
-                    show: true
-                })
-                this.fade();
+        
+        PostControl.postBlog(formData)
+        .then(res => {
+            this.setState({
+                ...this.state,
+                response: res.data,
+                show: true
             })
-            .catch( err => {
-                alert(err);
-            })
+            this.fade();
+        })
+        .catch(err => {
+            alert(err);
+        })
         
         let activity = 'You posted blog '+title+' on '+new Date();
 
-        axios.put('/useractivity',{
-            userName:userName,
-            activity:activity
-        })
-        .then(res => {})
-        .catch(err => {alert(err);})
+        UserActivity.addUserActivity(userName, activity)
+        .then(res => { })
+        .catch(err => { alert(err); })
 
         console.log(this.state.content);
         }        

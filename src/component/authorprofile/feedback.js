@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from '../../axiosInstance';
 import Modal from '../modal/modal';
+import PostControl from '../../services/postControlService';
 
 class FeedBack extends Component {
 
@@ -32,11 +32,10 @@ class FeedBack extends Component {
             let userName = localStorage.getItem('userName');
             let feed = document.getElementById('feed').value;
 
-            if(feed !== '') {
-                axios.post(url, {
-                    userName: userName,
-                    feed: feed
-                })
+            if (feed !== '') {
+
+
+                PostControl.sendFeedBack(url, userName, feed)
                     .then(res => {
                         this.setState({
                             ...this.state,
@@ -56,7 +55,7 @@ class FeedBack extends Component {
                 })
                 this.fade();
             }
-           
+
         }
     }
 
@@ -74,11 +73,8 @@ class FeedBack extends Component {
             let msg = document.getElementById('msg').value;
 
 
-            if(msg !== '') {
-                axios.post(url, {
-                    userName: userName,
-                    msg: msg
-                })
+            if (msg !== '') {
+                PostControl.sendMessage(url, userName, msg)
                     .then(res => {
                         this.setState({
                             ...this.state,
@@ -98,7 +94,7 @@ class FeedBack extends Component {
                 })
                 this.fade();
             }
-            
+
         }
     }
 
@@ -118,17 +114,17 @@ class FeedBack extends Component {
                     <div>
                         <button type="button" class="btn btn-danger" onClick={this.sendFeedback}>Send</button>
                     </div>
-                    <br/>
+                    <br />
                 </form>
                 <div class="container-fluid text-center">
                     <form class="form-inline">
-                             <input type="text" class="form-control" size="50" placeholder="send message" id='msg'/>
-                            <button type="button" class="btn btn-danger" onClick={this.sendMessage}>Send Message</button>
+                        <input type="text" class="form-control" size="50" placeholder="send message" id='msg' />
+                        <button type="button" class="btn btn-danger" onClick={this.sendMessage}>Send Message</button>
                     </form>
                 </div>
-          </div>
-                )
-            }
+            </div>
+        )
+    }
 }
 
 export default FeedBack;
