@@ -3,6 +3,7 @@ import StarRatingComponent from 'react-star-rating-component';
 import { connect } from 'react-redux';
 import axios from '../../../axiosInstance';
 import Modal from '../../modal/modal';
+import PostControl from '../../../services/postControlService';
 
 class Rating extends Component {
 
@@ -27,11 +28,8 @@ class Rating extends Component {
         let url='/post/rating/all/'+id;
         let userName = localStorage.getItem('userName');
 
-        console.log(url);
-
-        axios.get(url)
+        PostControl.getRating(url)
         .then(res => {
-            console.log(res.data);
             res.data.forEach(obj => {
                 if(obj.userName === userName) {
                     this.setState({
@@ -64,20 +62,24 @@ class Rating extends Component {
             if(!this.state.rate) {
                 this.setState({rating: nextValue});
 
-                axios.put(url,{
-                    userName : userName,
-                    ratingData : nextValue,
-                    token:token
-                })
-                .then(res =>{
+                PostControl.addRating(url,userName,nextValue,token)
+                .then(res => {
                     this.setState({
                         ...this.setState,
                         rate:true
                     })
                 })
-                .catch(err =>{
+                .catch(err => {
                     alert(err);
                 })
+
+                axios.put('/useractivity',{
+                    userName : userName,
+                    activity: activity
+                })
+                .then(res => {})
+                .catch(err => {alert(err);})
+
             } else {
                 this.setState({
                     ...this.state,
@@ -86,13 +88,6 @@ class Rating extends Component {
                 })
                 this.fade();
             }
-            
-            axios.put('/useractivity',{
-                userName : userName,
-                activity: activity
-            })
-            .then(res => {})
-            .catch(err => {alert(err);})
         }
         
       }

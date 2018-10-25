@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import axios from '../../axiosInstance';
 import { withRouter } from 'react-router';
 import postService from '../../services/postService';
+import PostControl from '../../services/postControlService';
 
 
 class SubscribeBlog extends Component {
@@ -28,7 +28,7 @@ class SubscribeBlog extends Component {
         let postUrl = '/blog/'+id;
         let url = '/post/view/'+id;
 
-        axios.put(url)
+        PostControl.increseView(url)
         .then(res => {
             this.props.history.push(postUrl);
         })

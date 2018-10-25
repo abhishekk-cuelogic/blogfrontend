@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from '../../axiosInstance';
 import { withRouter } from 'react-router'
+import PostControl from '../../services/postControlService';
 
 class  BlogDiv extends Component {
 
@@ -9,13 +9,14 @@ class  BlogDiv extends Component {
       let url = '/post/view/'+this.props.post._id;
       let posturl = '/blog/'+this.props.post._id;
 
-      axios.put(url)
+      PostControl.increseView(url)
       .then(res => {
         this.props.history.push(posturl);
       })
       .catch(error => {
         console.log(error);
       })
+
   }
 
   render() {

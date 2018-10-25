@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Ronaldo from '/home/abhishek/Desktop/blogfrontend/src/ronaldo.jpeg';
 import { connect } from 'react-redux';
 import axios from '../../../axiosInstance';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Modal from '../../modal/modal';
+import PostControl from '../../../services/postControlService';
 
 class AuthorInfo extends Component {
 
@@ -67,12 +68,8 @@ class AuthorInfo extends Component {
                 let userName = localStorage.getItem('userName');
                 let token = localStorage.getItem('token');
 
-                axios.put(url, {
-                    userName: userName,
-                    token:token
-                })
+                PostControl.increseLike(url, userName, token)
                     .then(response => {
-                        console.log(response);
                         this.setState({
                             ...this.setState,
                             like: true,
@@ -83,13 +80,15 @@ class AuthorInfo extends Component {
                     .catch(error => {
                         console.log(error);
                     })
-                
-                    axios.put('/useractivity',{
-                        userName : userName,
-                        activity: activity
-                    })
-                    .then(res => {})
-                    .catch(err => {alert(err);})
+
+
+
+                axios.put('/useractivity', {
+                    userName: userName,
+                    activity: activity
+                })
+                    .then(res => { })
+                    .catch(err => { alert(err); })
             }
 
         }
@@ -125,12 +124,12 @@ class AuthorInfo extends Component {
                         alert(err);
                     })
 
-                    axios.put('/useractivity',{
-                        userName : userName,
-                        activity: activity
-                    })
-                    .then(res => {})
-                    .catch(err => {alert(err);})
+                axios.put('/useractivity', {
+                    userName: userName,
+                    activity: activity
+                })
+                    .then(res => { })
+                    .catch(err => { alert(err); })
             }
 
         }
@@ -141,7 +140,7 @@ class AuthorInfo extends Component {
         let url = '/post/like/' + data[4];
         let userName = localStorage.getItem('userName');
 
-        axios.get(url)
+        PostControl.getLikes(url)
             .then(res => {
                 res.data.forEach(obj => {
                     if (obj.userName === userName) {
@@ -177,7 +176,7 @@ class AuthorInfo extends Component {
             likename = "LIKED"
         }
 
-        let authorprofile = '/authorprofile/'+this.props.Post.userName;
+        let authorprofile = '/authorprofile/' + this.props.Post.userName;
 
         let message = null;
 
@@ -186,12 +185,12 @@ class AuthorInfo extends Component {
         }
         return (
             <div className="container-fluid">
-                 {message}
+                {message}
                 <div className="col-sm-2 text-center">
                     <img src={Ronaldo} className="img-responsive img-rounded" alt="Avatar" />
                 </div>
                 <div className="col-sm-10">
-                    <h4><Link to={authorprofile}><b style={{color:'black'}}>{this.props.Post.authorName}</b></Link><small> {this.props.Post.date}</small></h4>
+                    <h4><Link to={authorprofile}><b style={{ color: 'black' }}>{this.props.Post.authorName}</b></Link><small> {this.props.Post.date}</small></h4>
                     <button type="button" className="btn btn-default btn-sm" onClick={this.onLiked}>
                         <span className="glyphicon glyphicon-thumbs-up"></span> <b>{likename}</b> {this.state.likes}
                     </button>

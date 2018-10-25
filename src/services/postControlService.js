@@ -1,24 +1,70 @@
 import axios from '../axiosInstance';
 
+class PostControl {
 
-class postService {
-
-    getRecentPost = () => {
+    increseView = (url) => {
         return new Promise((resolve, reject) => {
-            axios.get('/post/recent')
+            axios.put(url)
                 .then(response => {
                     resolve(response);
-
-                }).catch(error => {
-                    console.log(error);
+                })
+                .catch(error => {
                     reject(error);
                 })
         })
     }
 
-    getPopularPost = () => {
+    increseLike = (url, userName, token) => {
+
         return new Promise((resolve, reject) => {
-            axios.get('/post/popular')
+            axios.put(url, {
+                userName: userName,
+                token: token
+            })
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        })
+
+    }
+
+    getLikes = (url) => {
+        return new Promise((resolve, reject) => {
+            axios.get(url)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        })
+    }
+
+    addComment = (url, userName, commentData, token) => {
+        return new Promise((resolve, reject) => {
+            axios.put(url, {
+                userName: userName,
+                commentData: commentData,
+                token: token
+            })
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        })
+    }
+
+    deleteComment = (url, id, token) => {
+        return new Promise((resolve, reject) => {
+            axios.put(url, {
+                commentId: id,
+                token: token
+            })
                 .then(response => {
                     resolve(response);
                 })
@@ -28,77 +74,33 @@ class postService {
         })
     }
 
-    getYMLPost = () => {
+    addRating = (url, userName, nextValue, token) => {
         return new Promise((resolve, reject) => {
-            axios.get('/post/yml')
-                .then(response => {
-                    resolve(response);
-                })
-                .catch(error => {
-                    reject(error);
-                })
-        })
-    }
-
-    getAllPost = () => {
-        return new Promise((resolve, reject) => {
-            axios.get('/post')
-                .then(response => {
-                    resolve(response)
-                })
-                .catch(error => {
-                    reject(error);
-                })
-        })
-    }
-
-    getUserAllPost = (url) => {
-        return new Promise((resolve, reject) => {
-            axios.get(url)
-                .then(response => {
-                    resolve(response);
-                })
-                .catch(error => {
-                    reject(error)
-                })
-        })
-    }
-
-    getPostByCatagory = (url) => {
-        return new Promise((resolve, reject) => {
-            axios.get(url)
-                .then(response => {
-                    resolve(response);
-                })
-                .catch(error => {
-                    reject(error);
-                })
-        })
-    }
-
-    getPostByYear = (url) => {
-        return new Promise((resolve, reject) => {
-            axios.get(url)
-                .then(response => {
-                    resolve(response);
-                })
-                .catch(error => {
-                    reject(error);
-                })
-        })
-    }
-
-    getPost = (url) => {
-        return new Promise ((resolve,reject) => {
-            axios.get(url)
-            .then(response => {
-                resolve(response);
+            axios.put(url, {
+                userName: userName,
+                ratingData: nextValue,
+                token: token
             })
-            .catch(error => {
-                reject(error);
-            })
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        })
+    }
+
+    getRating = (url) => {
+        return new Promise((resolve, reject) => {
+            axios.get(url)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
         })
     }
 }
 
-export default new postService();
+export default new PostControl();

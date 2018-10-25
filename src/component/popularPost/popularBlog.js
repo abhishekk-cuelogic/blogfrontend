@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from '../../axiosInstance';
 import { withRouter } from 'react-router';
 import postService from '../../services/postService';
+import PostControl from '../../services/postControlService';
 
 class PopularBlog extends Component {
 
@@ -11,7 +11,6 @@ class PopularBlog extends Component {
     }
 
     componentDidMount = () => {
-        
         postService.getPopularPost()
         .then(res =>{
             this.setState({
@@ -28,12 +27,12 @@ class PopularBlog extends Component {
         let url = '/post/view/'+link;
         let posturl = '/blog/'+link;
   
-        axios.put(url)
+        PostControl.increseView(url)
         .then(res => {
-          this.props.history.push(posturl);
+            this.props.history.push(posturl);
         })
         .catch(error => {
-          console.log(error);
+            console.log(error);
         })
     }
 

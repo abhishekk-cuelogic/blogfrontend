@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 import Img from '/home/abhishek/Desktop/blogfrontend/src/img.jpg';
-import axios from '../../../axiosInstance';
 import Modal from '../../modal/modal';
 import { connect } from 'react-redux';
+import PostControl from '../../../services/postControlService'; 
 
 
 class CommentDisplay extends Component {
@@ -25,12 +25,8 @@ class CommentDisplay extends Component {
         let url = '/post/comment/'+postId+'/'+id;
         let token=localStorage.getItem('token');
 
-        axios.put(url,{
-            commentId:id,
-            token:token
-        })
-        .then(res=>{
-            console.log(res);
+        PostControl.deleteComment(url,id,token)
+        .then(res => {
             this.props.deleteComment(res.data.resdata);
             this.setState({
                 ...this.state,
@@ -39,7 +35,9 @@ class CommentDisplay extends Component {
             })
             this.fade();
         })
-        .catch(err=>{})
+        .catch(err => {
+            console.log(err);
+        })
     }
 
     render() {

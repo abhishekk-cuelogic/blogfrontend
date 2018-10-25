@@ -3,6 +3,7 @@ import axios from '../../../axiosInstance';
 import { connect } from 'react-redux';
 import Rating from './rating';
 import Modal from '../../modal/modal';
+import PostControl from '../../../services/postControlService';
 
 
 class Comment extends Component {
@@ -39,18 +40,14 @@ class Comment extends Component {
             url = '/post/comment/'+this.props.Post._id;
             let token = localStorage.getItem('token');
 
-            axios.put(url,{
-                userName: userName,
-                commentData : commentData,
-                token:token
-            })
+            PostControl.addComment(url,userName,commentData,token)
             .then(response => {
-                console.log("comment Response======>",response.data);
                 this.props.saveComment(response.data);
             })
             .catch(error => {
                 alert(error);
             })
+
 
             axios.put('/useractivity',{
                 userName : userName,

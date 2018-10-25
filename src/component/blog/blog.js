@@ -3,8 +3,8 @@ import AuthorInfo from './authorInfo/authorInfo';
 import BlogInfo from './blogInfo/blogInfo';
 import Comment from './comment/comment';
 import CommentDisplay from './comment/commentDisplay';
-import axios from '../../axiosInstance';
 import { connect } from 'react-redux';
+import PostService from '../../services/postService';
 
 
 class Blog extends Component {
@@ -12,7 +12,8 @@ class Blog extends Component {
     componentWillMount = () => {
         this.props.clearState();
         let url = '/post/id/'+this.props.id;
-        axios.get(url)
+     
+        PostService.getPost(url)
         .then(response => {
             this.props.getPost(response.data);
         })
