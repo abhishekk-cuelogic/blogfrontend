@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
+import userService from '../../services/userService';
 
 class ForgotComponent extends Component {
 
     sendMail = () => {
         let userName = document.getElementById('email').value;
 
-        axios.post('/signin/forgotpassword',{
-            email:userName
-        })
-        .then(res => {
-            alert(res.data.message);
+        userService.sendMail(userName).
+        then(response => {
+            alert(response.data.message);
         })
     }
 

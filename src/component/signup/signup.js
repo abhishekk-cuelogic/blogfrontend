@@ -3,6 +3,7 @@ import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 import validator from 'validator';
 import Modal from '../modal/modal';
+import userService from '../../services/userService';
 
 class SignUp extends Component {
 
@@ -73,36 +74,22 @@ class SignUp extends Component {
             this.fade()
         } else {
             if (this.valiadate(email, password)) {
-                axios.post('/', {
-                    username: email,
-                    password: password
-                })
-                    .then((response) => {
-                        axios.post('/profile', {
-                            userName: email,
-                            fullName: '',
-                            contact: '',
-                            skills: '',
-                            profileImage: ''
-                        })
-                            .then(res => { })
-                            .catch(err => { })
-
-                        this.setState({
-                            ...this.state,
-                            response: response.data,
-                            show: true
+                userService.userSignUp(email,password).
+                then(response =>{
+                    this.setState({
+                        ...this.state,
+                        response: response.data,
+                        show: true
                         })
                         this.fade()
-
+                })
+                .catch(error =>{
+                    this.setState({
+                        ...this.state,
+                        response: error,
+                        show: true
                     })
-                    .catch((error) => {
-                        this.setState({
-                            ...this.state,
-                            response: error,
-                            show: true
-                        })
-                    });
+                });
             }
         }
     }

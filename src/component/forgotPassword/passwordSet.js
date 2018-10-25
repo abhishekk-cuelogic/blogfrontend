@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import NavBar from '../navbar/navbar';
 import axios from '../../axiosInstance';
+import userService from '../../services/userService';
+import validator from 'validator';
 
 class PasswordSet extends Component {
 
@@ -27,27 +29,35 @@ class PasswordSet extends Component {
         }) 
     }
 
+    validate = (password) => {
+    
+        if(validator.isEmpty(password)){
+            alert('Plese enter password');
+            return false;
+        }
+        
+        return true;
+
+    }
+
     changePassword = () => {
-        //alert("changepassord");
         let passWord = document.getElementById('pwd').value;
         let confirmPassword = document.getElementById('cpwd').value;
+        let userName = this.state.userName
         
         if(passWord !== confirmPassword) {
             alert('plese confirm your password again');
         } else {
-            axios.post('/signin/resetpassword',{
-                userName : this.state.userName,
-                passWord:passWord
-            })
-            .then(res => {
-                alert(res.data);
-            })
-            .catch(err => {
-                alert(err);
-            })
-        }
-
-       
+            if(this.validate(passWord)) {
+                userService.resetPassword(userName,passWord)
+                .then(response => {
+                    alert(response);
+                })
+                .catch(error => {
+                    alert(error);
+                })
+            }
+        }   
     }
 
     render() {

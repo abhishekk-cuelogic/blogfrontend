@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import validator from 'validator';
 import {Link} from 'react-router-dom';
 import Modal from '../modal/modal';
+import userService from '../../services/userService';
+
+
 
 class SignIn extends Component {
 
@@ -65,38 +68,40 @@ class SignIn extends Component {
         let password=document.getElementById('pwd').value;
 
         if(this.validate(email,password)){
+         userService.userSignIn(email,password)
+         .then(response => {
+            if(response.data.message) { 
+                this.setState({
+                    ...this.state,
+                    response:'Login Successful',
+                    show:true
+                })
+                this.fade();   
+                this.props.onLoggedIn();
+                this.props.onNavigationClicked();
+                localStorage.setItem('token',response.data.token);
+                localStorage.setItem('userName',response.data.username);
+                this.props.history.push('/');
+            } else {
+                this.setState({
+                    ...this.state,
+                    response:'Login Unsuccessful',
+                    show:true
+                })
+                this.fade();
+            }               
 
-            axios.post('/signin',{
-                username:email,
-                password:password
+        })
+        .catch(error => {
+            this.setState({
+                ...this.state,
+                response: error,
+                show:true
             })
-            .then((response) => {
-                if(response.data.message) { 
-                    this.setState({
-                        ...this.state,
-                        response:'Login Successful',
-                        show:true
-                    })
-                    this.fade();   
-                    this.props.onLoggedIn();
-                    this.props.onNavigationClicked();
-                    localStorage.setItem('token',response.data.token);
-                    localStorage.setItem('userName',response.data.username);
-                    this.props.history.push('/');
-                } else {
-                    this.setState({
-                        ...this.state,
-                        response:'Login Unsuccessful',
-                        show:true
-                    })
-                    this.fade();
-                }               
-            })
-            .catch((error) => {
-                alert(error);
-            }) 
+            this.fade(); 
+        })
 
-        };        
+        };
        }
 
     render() {
