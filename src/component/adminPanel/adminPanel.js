@@ -1,17 +1,18 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import NavBar from '../navbar/navbar';
 import AllUsers from './AllUsers';
 import AllPosts from './AllPosts';
 import axios from '../../axiosInstance';
+import postService from '../../services/postService';
 
 
 class AdminPanel extends Component {
 
     state = {
         profiles: [],
-        posts:[],
-        userShow:false,
-        postShow:false
+        posts: [],
+        userShow: false,
+        postShow: false
     }
 
     componentDidMount = () => {
@@ -27,33 +28,32 @@ class AdminPanel extends Component {
             .catch(err => {
                 console.log(err);
             })
-        
-        axios.get('/post')
-        .then(res=>{
-            console.log('post===>',res);
-            this.setState({
-                ...this.state,
-                posts:res.data
+
+        postService.getAllPost()
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    posts: res.data
+                })
             })
-        })
-        .catch(err=>{
-            console.log(err);
-        })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     userShow = () => {
         this.setState({
             ...this.state,
-            userShow : true,
-            postShow:false
+            userShow: true,
+            postShow: false
         })
     }
 
     postShow = () => {
         this.setState({
             ...this.state,
-            userShow : false,
-            postShow:true
+            userShow: false,
+            postShow: true
         })
     }
 
@@ -74,32 +74,32 @@ class AdminPanel extends Component {
             padding: '0 5px'
         }
         const row = {
-            marginLeft:'30%',
+            marginLeft: '30%',
         }
 
         let allusers = null;
 
-        allusers=this.state.profiles.map(obj => {
-            return <div><AllUsers profile={obj} /><br/><hr/></div>
+        allusers = this.state.profiles.map(obj => {
+            return <div><AllUsers profile={obj} /><br /><hr /></div>
         })
 
         let allposts = null;
 
-        allposts=this.state.posts.map(obj => {
-            return <div><AllPosts post={obj}/><br/><hr/></div>
+        allposts = this.state.posts.map(obj => {
+            return <div><AllPosts post={obj} /><br /><hr /></div>
         })
 
         let show = null;
-        let title=null;
+        let title = null;
 
-        if(this.state.userShow) {
+        if (this.state.userShow) {
             show = allusers
-            title='AllUsers'
+            title = 'AllUsers'
         }
 
-        if(this.state.postShow) {
-            show=allposts
-            title='AllPosts'
+        if (this.state.postShow) {
+            show = allposts
+            title = 'AllPosts'
         }
 
         return (
@@ -113,7 +113,7 @@ class AdminPanel extends Component {
                             <h3>{this.state.profiles.length}</h3>
                             <p>No Of Users</p>
                             <button type="button" class="btn btn-default btn-block" onClick={this.userShow}>
-                                 View
+                                View
                             </button>
                         </div>
                     </div>
@@ -130,17 +130,17 @@ class AdminPanel extends Component {
                     </div>
                 </div>
                 <div class="container">
-                <br /><br />
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th><h3>{title}</h3></th>
-                        </tr>
-                    </thead><br/>
-                    {show}<hr/>
-                </table>
-            </div>
+                    <br /><br />
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><h3>{title}</h3></th>
+                            </tr>
+                        </thead><br />
+                        {show}<hr />
+                    </table>
                 </div>
+            </div>
         )
 
     }

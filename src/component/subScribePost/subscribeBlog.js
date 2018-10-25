@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from '../../axiosInstance';
 import { withRouter } from 'react-router';
+import postService from '../../services/postService';
 
 
 class SubscribeBlog extends Component {
@@ -9,11 +10,10 @@ class SubscribeBlog extends Component {
         posts : []
     }
 
-
     componentDidMount = () => {
-        axios.get('/post/yml')
+    
+        postService.getYMLPost()
         .then(res => {
-            console.log('subscibe=====>',res.data);
             this.setState({
                 ...this.state,
                 posts : res.data

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from '../../axiosInstance';
 import { withRouter } from 'react-router';
+import postService from '../../services/postService';
 
 class PopularBlog extends Component {
 
@@ -10,8 +11,9 @@ class PopularBlog extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('/post/popular')
-        .then(res => {
+        
+        postService.getPopularPost()
+        .then(res =>{
             this.setState({
                 popularPost : [...res.data]
             })

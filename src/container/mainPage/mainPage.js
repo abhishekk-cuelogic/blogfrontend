@@ -4,18 +4,18 @@ import RecentPost from '../../component/recentPost/recentPost';
 import PopularPost from '../../component/popularPost/popularPost';
 import Footer from '../../component/footer/footer';
 import { connect } from 'react-redux';
-import axios from '../../axiosInstance';
+import postService from '../../services/postService';
 
 
 class MainPage extends Component {
 
     componentDidMount = () => {
 
-     axios.get('/post/recent')
-        .then(res => {
+        postService.getRecentPost()
+        .then(res =>{
             this.props.getPosts(res.data);
-
-        }).catch(err => {
+        })
+        .catch(err => {
             console.log(err);
         })
     }

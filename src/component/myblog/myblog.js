@@ -3,6 +3,7 @@ import Navbar from '../navbar/navbar';
 import axios from '../../axiosInstance';
 import {Link} from 'react-router-dom';
 import Modal from '../modal/modal';
+import postService from '../../services/postService';
 
 class MyBlog extends Component {
 
@@ -16,17 +17,18 @@ class MyBlog extends Component {
         let userName = localStorage.getItem('userName');
         let url = '/post/getallpost/' + userName;
 
-        axios.get(url)
-            .then(res => {
-                this.setState({
-                    ...this.state,
-                    posts: res.data
-                })
+        postService.getUserAllPost(url)
+        .then(res => {
+            this.setState({
+                ...this.state,
+                posts: res.data
             })
-            .catch(err => {
-                alert(err);
-            })
+        })
+        .catch(err => {
+            alert(err);
+        })
     }
+    
     fade = () => {
         setTimeout(() => {
             this.setState({

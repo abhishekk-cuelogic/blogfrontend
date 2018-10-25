@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Archive from './archivesearch'; 
 import axios from '../../axiosInstance';
+import postService from '../../services/postService';
 
 class Footer extends Component {
 
@@ -13,9 +14,8 @@ class Footer extends Component {
         
         let url = '/post/year/'+e.target.value;
 
-        axios.get(url)
+        postService.getPostByYear(url)
         .then(res => {
-            console.log('data search====>',res.data);
             this.setState({
                 ...this.state,
                 posts : res.data
