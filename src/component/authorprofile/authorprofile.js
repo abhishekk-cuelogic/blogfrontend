@@ -10,7 +10,7 @@ class AuthorProfile extends Component {
     }
 
     componentWillMount = () => {
-        let url ='/profile/'+this.props.match.params.userName;
+        let url ='/profile/'+ window.location.href.split('/')[4];
 
         ProfileService.getProfile(url)
         .then(res => {

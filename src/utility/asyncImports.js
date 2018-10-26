@@ -2,6 +2,10 @@ import asyncComponent from './asyncComponent';
 
 class asyncImports {
 
+    asyncMainPage = asyncComponent(() => {
+        return import('../container/mainPage/mainPage');
+    })
+
     asyncSignUp = asyncComponent(() => {
         return import('../component/signup/signup');
     });
@@ -72,6 +76,10 @@ class asyncImports {
         } else {
             return import('../component/authComponent/authentication');
         }
+    });
+
+    asyncModal = asyncComponent(() => {
+        return import('../component/modal/modal');
     });
 }
 

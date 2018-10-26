@@ -1,0 +1,65 @@
+import asyncImports from './asyncImports';
+
+export const routes = [
+    {
+        path:'/',
+        component:asyncImports.asyncMainPage
+    },
+    {
+        path:'/signup',
+        component:asyncImports.asyncSignUp
+    },
+    {
+        path:'/signin',
+        component:asyncImports.asyncSignIn
+    },
+    {
+        path:'/profile',
+        component:asyncImports.asyncProfilePage
+    },
+    {
+        path:'/writeblog',
+        component:asyncImports.asyncWriteBlog
+    },
+    {
+        path:'/forgotpassword',
+        component:asyncImports.asyncForgotPassword
+    },
+    {
+        path:'/dashboard',
+        component:asyncImports.asyncDashboard
+    },
+    {
+        path:'/myblog',
+        component:asyncImports.asyncMyBlog
+    },
+    {
+        path:'/adminpanel',
+        component:asyncImports.asyncAdminPanel
+    },
+    {
+        path:'/modal',
+        component:asyncImports.asyncModal
+    },
+    {
+        path:'blog',
+        component:asyncImports.asyncBlogPage
+    },
+    {
+        path:'editblog',
+        component:asyncImports.asyncEditBlog
+    },
+    {
+        path:'changepassword',
+        component:asyncImports.asyncChangePassword
+    },
+    {
+        path:'search',
+        component:asyncImports.asyncSearch
+    },
+    {
+        path:'authorprofile',
+        component:asyncImports.asyncAuthorProfile
+    }
+
+]
