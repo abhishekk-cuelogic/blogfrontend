@@ -19,11 +19,19 @@ class asyncImports {
     });
 
     asyncProfilePage = asyncComponent(() => {
-        return import('../container/profilePage/profilePage');
+        if (localStorage.getItem('token')) {
+            return import('../container/profilePage/profilePage');
+        } else {
+            return import('../component/authComponent/authentication');
+        }
     });
 
     asyncWriteBlog = asyncComponent(() => {
-        return import('../component/writeBlog/writeBlog');
+        if (localStorage.getItem('token')) {
+            return import('../component/writeBlog/writeBlog');
+        } else {
+            return import('../component/authComponent/authentication');
+        }
     });
 
     asyncEditBlog = asyncComponent(() => {
@@ -39,7 +47,11 @@ class asyncImports {
     });
 
     asyncDashboard = asyncComponent(() => {
-        return import('../component/dashboard/dashboard');
+        if (localStorage.getItem('token')) {
+            return import('../component/dashboard/dashboard');
+        } else {
+            return import('../component/authComponent/authentication');
+        }
     });
 
     asyncSearch = asyncComponent(() => {
@@ -55,9 +67,12 @@ class asyncImports {
     });
 
     asyncAdminPanel = asyncComponent(() => {
-        return import('../component/adminPanel/adminPanel');
+        if (localStorage.getItem('userName') === 'admin@gmail.com') {
+            return import('../component/adminPanel/adminPanel')
+        } else {
+            return import('../component/authComponent/authentication');
+        }
     });
-
 }
 
 export default new asyncImports();
