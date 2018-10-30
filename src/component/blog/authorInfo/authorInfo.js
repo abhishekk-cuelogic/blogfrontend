@@ -153,6 +153,12 @@ class AuthorInfo extends Component {
     render() {
         let likename, follow;
 
+        if(this.state.follow) {
+            follow = 'FOLLOWING'
+        } else {
+            follow = 'FOLLOW'
+        }
+
         this.state.following.forEach(obj => {
             if (obj.userName === this.props.Post.userName) {
                 follow = 'FOLLOWING'
