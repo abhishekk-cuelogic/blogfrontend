@@ -14,6 +14,7 @@ class AuthorInfo extends Component {
         like: false,
         likes: 0,
         response: '',
+        following:[],
         show: false
     }
 
@@ -25,14 +26,10 @@ class AuthorInfo extends Component {
         ProfileService.getFollowing(url)
             .then(res => {
                 if (res.data !== null) {
-                    res.data.forEach(obj => {
-                        if (obj.userName === this.props.Post.userName) {
-                            this.setState({
-                                ...this.state,
-                                follow: true
-                            })
-                        }
-                    });
+                    this.setState({
+                        ...this.state,
+                        following:res.data
+                    })
                 }
             })
             .catch(err => {
@@ -156,11 +153,13 @@ class AuthorInfo extends Component {
     render() {
         let likename, follow;
 
-        if (this.state.follow) {
-            follow = 'FOLLOWING'
-        } else {
-            follow = 'FOLLOW'
-        }
+        this.state.following.forEach(obj => {
+            if (obj.userName === this.props.Post.userName) {
+                follow = 'FOLLOWING'
+            } else {
+                follow = 'FOLLOW'
+            }
+        });
 
         if (!this.state.like) {
             likename = "LIKE"
